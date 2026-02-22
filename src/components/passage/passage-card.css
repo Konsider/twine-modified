@@ -1,0 +1,189 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.passage-card {
+	cursor: default;
+	font-size: 85%;
+	position: absolute;
+	user-select: none;
+}
+
+.passage-card .selectable-card {
+	height: 100%;
+}
+
+.passage-card .card {
+	padding: calc(var(--grid-size) / 2);
+}
+
+.passage-card .card-content {
+	padding: 0;
+}
+
+.passage-card .card-content .placeholder {
+	font-style: italic;
+}
+
+.passage-card-image {
+	position: absolute;
+	top: 4px;
+	right: 4px;
+	width: 25%;
+	max-height: 40%;
+	object-fit: cover;
+	border-radius: 3px;
+	border: 1px solid var(--light-gray);
+	pointer-events: none;
+	z-index: 1;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.compact-passage-cards .passage-card-image {
+	width: 20%;
+	max-height: 30%;
+}
+
+.passage-card h2 {
+	color: var(--black);
+	font-size: 100%;
+	font-weight: normal;
+}
+
+.passage-card .card-content {
+	color: var(--gray);
+	padding: 0;
+	overflow: ellipsis;
+}
+
+.passage-card.empty .card {
+	background: hsla(0, 100%, 100%, 0.33);
+	border: 1px dashed var(--gray);
+	box-shadow: none;
+	backdrop-filter: blur(1px);
+}
+
+.passage-card.empty.selected .card {
+	background: hsla(212, 90%, 60%, 0.1);
+	border: 1px dashed var(--blue);
+	box-shadow: 0 0 0 2px var(--blue), 0 0 6px rgba(33, 120, 232, 0.25);
+}
+
+.passage-card.is-end .card {
+	background: var(--light-green);
+	border: 1px solid var(--green);
+}
+
+.passage-card.is-end.selected .card {
+	background: var(--light-green);
+	box-shadow: 0 0 0 2.5px var(--green), 0 0 8px rgba(60, 160, 60, 0.35);
+}
+
+.passage-card.is-unconfirmed-end .card {
+	background: var(--light-purple);
+	border: 1px solid var(--purple);
+}
+
+.passage-card.is-unconfirmed-end.selected .card {
+	background: var(--light-purple);
+	box-shadow: 0 0 0 2.5px var(--purple), 0 0 8px rgba(140, 80, 180, 0.35);
+}
+
+.passage-card.is-orphan .card {
+	border: 2px dashed var(--orange);
+	background: hsla(30, 100%, 95%, 1);
+}
+
+.passage-card.is-orphan.selected .card {
+	box-shadow: 0 0 0 2.5px var(--orange), 0 0 8px rgba(220, 140, 40, 0.35);
+}
+
+.compact-passage-cards .passage-card h2 {
+	align-items: center;
+	display: flex;
+	flex-grow: 1;
+	font-size: 160%;
+	justify-content: center;
+	text-align: center;
+	word-break: break-word;
+}
+
+.compact-passage-cards .passage-card .card-content {
+	display: none;
+}
+
+.compact-passage-cards .passage-card .tag-stripe span {
+	border-radius: 4px;
+	height: 8px;
+}
+
+[data-app-theme='dark'] .passage-card.empty .card {
+	background: hsla(0, 100%, 100%, 0.1);
+}
+
+[data-app-theme='dark'] .passage-card.empty.selected .card {
+	background: hsla(212, 90%, 60%, 0.2);
+	box-shadow: 0 0 0 2px var(--blue), 0 0 6px rgba(33, 120, 232, 0.3);
+}
+
+[data-app-theme='dark'] .passage-card.is-end .card {
+	background: var(--light-green);
+	border: 1px solid var(--green);
+}
+
+[data-app-theme='dark'] .passage-card.is-end.selected .card {
+	background: var(--light-green);
+	box-shadow: 0 0 0 2.5px var(--green), 0 0 8px rgba(60, 160, 60, 0.35);
+}
+
+[data-app-theme='dark'] .passage-card.is-unconfirmed-end .card {
+	background: var(--light-purple);
+	border: 1px solid var(--purple);
+}
+
+[data-app-theme='dark'] .passage-card.is-unconfirmed-end.selected .card {
+	background: var(--light-purple);
+	box-shadow: 0 0 0 2.5px var(--purple), 0 0 8px rgba(140, 80, 180, 0.35);
+}
+
+[data-app-theme='dark'] .passage-card.is-orphan .card {
+	border: 2px dashed var(--orange);
+	background: var(--faint-orange);
+}
+
+[data-app-theme='dark'] .passage-card.is-orphan.selected .card {
+	box-shadow: 0 0 0 2.5px var(--orange), 0 0 8px rgba(220, 140, 40, 0.35);
+}
+
+/* Hover preview tooltip */
+
+.passage-hover-preview {
+	position: absolute;
+	transform: translateX(-50%);
+	margin-bottom: 6px;
+	min-width: 300px;
+	max-width: 420px;
+	max-height: 120px;
+	overflow: hidden;
+	padding: 8px 10px;
+	background: var(--black);
+	color: var(--white);
+	font-size: 0.88rem;
+	line-height: 1.4;
+	border-radius: 5px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	pointer-events: none;
+	z-index: 100;
+	white-space: pre-wrap;
+	word-break: break-word;
+	opacity: 0;
+	animation: passage-preview-fadein 0.15s ease forwards;
+}
+
+@keyframes passage-preview-fadein {
+	to { opacity: 1; }
+}
+
+[data-app-theme='dark'] .passage-hover-preview {
+	background: var(--light-gray);
+	color: var(--black);
+}

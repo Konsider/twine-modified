@@ -1,0 +1,163 @@
+@import '../../styles/colors.css';
+
+.passage-edit-contents {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+}
+
+.passage-edit-toolbar-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.passage-edit-toolbar-row > .button-bar {
+	flex: 1;
+	min-width: 0;
+}
+
+.passage-edit-body {
+	position: relative;
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+}
+
+/* Needed when CodeMirror is disabled. */
+
+.passage-edit-contents .dialog-editor textarea {
+	border-radius: 0;
+}
+
+.passage-edit-contents .dialog-editor textarea:focus {
+	box-shadow: inset 0 0 0px 2px var(--blue);
+	outline: none;
+}
+
+.passage-edit-status-bar {
+	display: flex;
+	align-items: center;
+	padding: 4px 8px;
+	font-size: 0.8em;
+	border-top: 1px solid var(--light-gray);
+	flex-shrink: 0;
+	gap: 6px;
+}
+
+.passage-edit-tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+	flex: 1;
+	min-width: 0;
+}
+
+.passage-edit-tag {
+	display: inline-block;
+	padding: 1px 8px;
+	border-radius: 10px;
+	font-size: 0.9em;
+	white-space: nowrap;
+	background-color: var(--off-white);
+	border: 1px solid var(--light-gray);
+	color: var(--dark-gray);
+}
+
+.passage-edit-tag.color-red {
+	background-color: var(--faint-red);
+	border-color: var(--light-red);
+	color: var(--dark-red);
+}
+
+.passage-edit-tag.color-orange {
+	background-color: var(--faint-orange);
+	border-color: var(--light-orange);
+	color: var(--dark-orange);
+}
+
+.passage-edit-tag.color-yellow {
+	background-color: var(--faint-yellow);
+	border-color: var(--light-yellow);
+	color: var(--dark-yellow);
+}
+
+.passage-edit-tag.color-green {
+	background-color: var(--faint-green);
+	border-color: var(--light-green);
+	color: var(--dark-green);
+}
+
+.passage-edit-tag.color-blue {
+	background-color: var(--faint-blue);
+	border-color: var(--light-blue);
+	color: var(--dark-blue);
+}
+
+.passage-edit-tag.color-purple {
+	background-color: var(--faint-purple);
+	border-color: var(--light-purple);
+	color: var(--dark-purple);
+}
+
+.passage-edit-word-count {
+	color: var(--dark-gray);
+	white-space: nowrap;
+	flex-shrink: 0;
+}
+
+.passage-edit-status-right {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-left: auto;
+	flex-shrink: 0;
+}
+
+.passage-edit-end-toggle {
+	display: inline-flex;
+	align-items: center;
+	padding: 1px 10px;
+	border-radius: 10px;
+	font-size: 0.9em;
+	white-space: nowrap;
+	background-color: var(--off-white);
+	border: 1px solid var(--light-gray);
+	color: var(--dark-gray);
+	cursor: pointer;
+	flex-shrink: 0;
+	transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+	line-height: 1.4;
+}
+
+.passage-edit-end-toggle:hover:not(:disabled) {
+	border-color: var(--green);
+	color: var(--dark-green);
+}
+
+.passage-edit-end-toggle.is-end {
+	background-color: var(--light-green);
+	border-color: var(--green);
+	color: var(--dark-green);
+}
+
+.passage-edit-end-toggle:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+/* Broken link highlighting in CodeMirror editor */
+
+.cm-broken-link {
+	text-decoration: wavy underline var(--red);
+	text-decoration-skip-ink: none;
+	text-underline-offset: 2px;
+	background: hsla(0, 80%, 50%, 0.06);
+	border-radius: 2px;
+}
+
+[data-app-theme='dark'] .cm-broken-link {
+	text-decoration-color: #f87171;
+	background: hsla(0, 80%, 50%, 0.12);
+}

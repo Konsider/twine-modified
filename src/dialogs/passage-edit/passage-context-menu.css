@@ -1,0 +1,49 @@
+.passage-context-menu {
+	position: fixed;
+	z-index: 10000;
+	background: var(--white, #fff);
+	border: 1px solid var(--light-gray, #ccc);
+	border-radius: 6px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	padding: 4px 0;
+	min-width: 160px;
+	font-size: 0.9em;
+}
+
+.passage-context-menu-item {
+	display: block;
+	width: 100%;
+	padding: 6px 16px;
+	border: none;
+	background: none;
+	text-align: left;
+	cursor: pointer;
+	color: var(--dark-gray, #333);
+	font-size: inherit;
+	font-family: inherit;
+}
+
+.passage-context-menu-item:hover {
+	background-color: var(--light-blue, #dde8ff);
+}
+
+.passage-context-menu-item:disabled {
+	color: var(--gray, #aaa);
+	cursor: default;
+}
+
+.passage-context-menu-item:disabled:hover {
+	background: none;
+}
+
+.passage-context-menu-separator {
+	height: 1px;
+	background-color: var(--light-gray, #ccc);
+	margin: 4px 0;
+}
+
+.passage-context-menu-item .shortcut {
+	float: right;
+	opacity: 0.5;
+	margin-left: 24px;
+}

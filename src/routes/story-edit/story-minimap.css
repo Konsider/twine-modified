@@ -1,0 +1,32 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+
+.story-minimap {
+	position: fixed;
+	top: calc(2 * var(--control-height) + 8px);
+	right: 8px;
+	z-index: 5;
+	background: rgba(255, 255, 255, 0.55);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	border: 1px solid rgba(0, 0, 0, 0.08);
+	border-radius: 6px;
+	padding: 3px;
+	opacity: 0.7;
+	transition: opacity 0.2s;
+	cursor: crosshair;
+}
+
+.story-minimap:hover {
+	opacity: 1;
+}
+
+.story-minimap canvas {
+	display: block;
+	border-radius: 4px;
+}
+
+[data-app-theme='dark'] .story-minimap {
+	background: rgba(30, 30, 35, 0.6);
+	border-color: rgba(255, 255, 255, 0.1);
+}

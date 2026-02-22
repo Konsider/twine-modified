@@ -1,0 +1,36 @@
+@import '../../styles/colors.css';
+@import '../../styles/metrics.css';
+
+.about-twine-dialog .custom-version-badge {
+	text-align: center;
+	font-weight: 700;
+	font-size: 1.1em;
+	color: var(--dark-blue);
+	letter-spacing: 0.05em;
+	margin-top: var(--grid-size);
+	margin-bottom: 0;
+}
+
+.about-twine-dialog p {
+	margin-left: var(--grid-size);
+	margin-right: var(--grid-size);
+}
+
+.about-twine-dialog .links .icon-link {
+	display: block;
+	text-align: center;
+}
+
+.about-twine-dialog .credits {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	padding: var(--grid-size);
+	padding-top: var(--ui-gap);
+}
+
+.about-twine-dialog .credits ul {
+	list-style-type: none;
+	margin-top: 0;
+	margin-left: 0;
+	padding-left: 0;
+}

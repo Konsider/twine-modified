@@ -1,0 +1,92 @@
+@import '../../styles/depth.css';
+@import '../../styles/metrics.css';
+
+.fuzzy-finder {
+	box-shadow: var(--shadow-large);
+	left: var(--grid-size);
+	position: fixed;
+	top: calc(2 * var(--control-height) + var(--grid-size)); /* below <top-bar> height */
+	z-index: 10;
+	width: 500px;
+}
+
+.fuzzy-finder .search {
+	align-items: center;
+	display: flex;
+	padding: var(--control-inner-padding) 0 var(--control-inner-padding) var(--grid-size);
+}
+
+.fuzzy-finder .search .text-input {
+	flex-grow: 1;
+}
+
+.fuzzy-finder .search .text-input label {
+	width: 100%;
+}
+
+.fuzzy-finder .results ol {
+	display: flex;
+	flex-direction: column;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.fuzzy-finder .results ol button {
+	width: 100%;
+}
+
+.fuzzy-finder .search + .results.has-results {
+	margin-top: calc(-1 * var(--control-inner-padding));
+} 
+
+
+.fuzzy-finder .no-results {
+	font-style: italic;
+	padding: 0 var(--grid-size) var(--grid-size) var(--grid-size);
+}
+
+.fuzzy-finder-footer {
+	font-size: 0.8rem;
+	color: var(--gray);
+	padding: 4px var(--grid-size) 6px;
+	border-top: 1px solid var(--faint-gray);
+}
+
+.fuzzy-finder-toolbar {
+	padding: 2px var(--grid-size) 4px;
+	border-bottom: 1px solid var(--faint-gray);
+}
+
+.search-scope {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.search-scope-label {
+	font-size: 0.75rem;
+	color: var(--gray);
+	margin-right: 4px;
+}
+
+.search-scope button {
+	font-size: 0.72rem;
+	padding: 1px 7px;
+	border: 1px solid var(--light-gray);
+	border-radius: 3px;
+	background: transparent;
+	color: var(--gray);
+	cursor: pointer;
+	line-height: 1.6;
+}
+
+.search-scope button:hover {
+	background: var(--faint-gray);
+}
+
+.search-scope button.active {
+	background: var(--blue);
+	border-color: var(--blue);
+	color: var(--white);
+}

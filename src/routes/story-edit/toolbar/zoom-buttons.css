@@ -1,0 +1,44 @@
+@import '../../../styles/depth.css';
+@import '../../../styles/metrics.css';
+
+.zoom-buttons {
+	align-items: center;
+	display: flex;
+	padding: 0 var(--grid-size);
+}
+
+.zoom-buttons .legend {
+	margin-right: var(--control-inner-padding);
+}
+
+.zoom-buttons .icon-button {
+	height: 34px;
+	width: 34px;
+	padding: 5px;
+}
+
+.zoom-buttons .icon-button .icon {
+	height: 24px;
+	width: 24px;
+	position: relative;
+	top: 0;
+}
+
+.zoom-buttons .passage-stats {
+	margin-left: var(--control-inner-padding);
+	font-size: 0.8em;
+	color: var(--dark-gray);
+	white-space: nowrap;
+}
+
+.zoom-buttons .passage-stats .stat-confirmed {
+	color: var(--dark-green);
+}
+
+.zoom-buttons .passage-stats .stat-unconfirmed {
+	color: var(--dark-purple);
+}
+
+.zoom-buttons .passage-stats .stat-orphan {
+	color: var(--dark-orange);
+}

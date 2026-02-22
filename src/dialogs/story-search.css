@@ -1,0 +1,61 @@
+@import '../styles/metrics.css';
+@import '../styles/colors.css';
+
+.story-search-dialog .search-fields {
+	padding: var(--grid-size);
+	margin: 0;
+}
+
+.story-search-dialog .search-error {
+	padding: 0 var(--grid-size);
+}
+
+.story-search-dialog .search-results {
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding-right: var(--grid-size);
+}
+
+.story-search-dialog .search-fields {
+	display: grid;
+	grid-gap: var(--grid-size);
+	grid-template-columns: 1fr 1fr;
+}
+
+.story-search-dialog .search-fields .code-area {
+	height: 5em;
+}
+
+.story-search-dialog .search-scope {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+.story-search-dialog .search-scope-label {
+	font-size: 0.8rem;
+	color: var(--gray);
+	margin-right: 4px;
+}
+
+.story-search-dialog .search-scope button {
+	font-size: 0.75rem;
+	padding: 2px 8px;
+	border: 1px solid var(--light-gray);
+	border-radius: 3px;
+	background: transparent;
+	color: var(--gray);
+	cursor: pointer;
+	line-height: 1.6;
+}
+
+.story-search-dialog .search-scope button:hover {
+	background: var(--faint-gray);
+}
+
+.story-search-dialog .search-scope button.active {
+	background: var(--blue);
+	border-color: var(--blue);
+	color: var(--white);
+}

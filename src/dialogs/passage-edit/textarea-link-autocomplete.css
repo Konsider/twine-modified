@@ -1,0 +1,41 @@
+@import '../../styles/colors.css';
+@import '../../styles/depth.css';
+
+.textarea-link-autocomplete {
+	position: fixed;
+	z-index: 10000;
+	min-width: 200px;
+	max-width: 350px;
+	max-height: 200px;
+	overflow-y: auto;
+	background: var(--white);
+	border: 1px solid var(--light-gray);
+	border-radius: 4px;
+	box-shadow: var(--shadow-large);
+	font-size: 0.9em;
+}
+
+.textarea-link-autocomplete .autocomplete-item {
+	padding: 5px 10px;
+	cursor: pointer;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.textarea-link-autocomplete .autocomplete-item:hover,
+.textarea-link-autocomplete .autocomplete-item.selected {
+	background: var(--light-blue);
+	color: var(--black);
+}
+
+[data-app-theme='dark'] .textarea-link-autocomplete {
+	background: var(--dark-gray);
+	border-color: var(--gray);
+}
+
+[data-app-theme='dark'] .textarea-link-autocomplete .autocomplete-item:hover,
+[data-app-theme='dark'] .textarea-link-autocomplete .autocomplete-item.selected {
+	background: var(--blue);
+	color: var(--white);
+}
