@@ -33,6 +33,7 @@ Official source: https://github.com/klembot/twinejs
 - **Link passages by dragging:** drag a passage onto another passage to create a link.
 - **Unlink passages:** right-click a passage and use the unlink option.
 - **Passage context menu:** right-click a passage for **unlink**, **delete**, and **duplicate**.
+- **Passage hover summary:** hover over a passage on the map to see a small popup summary.
 - **Spell check:** enabled in the passage editor (red underlines depending on your Windows language settings).
 - **Word count:** shown inside each passage editor panel (and in the bottom bar).
 - **Confirmed endings:** the toggle is in the **bottom bar** of the passage editor, **next to the word count**. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
@@ -72,7 +73,8 @@ Official source: https://github.com/klembot/twinejs
 17. **Bulk story import/export** + improved view/zoom options  
 18. Remembers last **story map position** when switching stories and after restart  
 19. Improved **Go To** and **Find & Replace** accuracy and highlighting  
-20. Other minor bug fixes and QoL improvements
+20. Small **hover popup passage summary** on the story map  
+21. Other minor bug fixes and QoL improvements
 
 ---
 
