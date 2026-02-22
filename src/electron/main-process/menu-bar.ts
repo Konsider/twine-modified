@@ -15,6 +15,11 @@ import {toggleHardwareAcceleration} from './hardware-acceleration';
 import {getAppPref} from './app-prefs';
 
 export function initMenuBar() {
+	app.setAboutPanelOptions({
+		applicationName: app.getName(),
+		applicationVersion: `${app.getVersion()} — Konsider's modified version`
+	});
+
 	const template: MenuItemConstructorOptions[] = [
 		{
 			label: app.getName(),

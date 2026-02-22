@@ -23,7 +23,7 @@ export const AboutTwineDialog: React.FC<DialogComponentProps> = props => {
 			})}
 		>
 			<div className="content">
-				<p className="custom-version-badge">CUSTOM VERSION BY KONSIDER</p>
+				<p className="custom-version-badge">KONSIDER'S MODIFIED VERSION</p>
 				<p>{t('dialogs.aboutTwine.twineDescription')}</p>
 				<p
 					dangerouslySetInnerHTML={{
