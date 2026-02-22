@@ -25,7 +25,30 @@ Official source: https://github.com/klembot/twinejs
 
 ---
 
-## What’s different in this fork
+## Quick tips (what’s new / how to use)
+
+- **Zoom the story map:** hold **Ctrl** and scroll the mouse wheel to zoom in/out.
+- **Zoom to fit / minimap:** use the toolbar controls; the minimap helps you jump around large maps.
+- **Create a passage quickly:** **double-click** an empty area of the story map.
+- **Link passages by dragging:** drag a passage onto another passage to create a link.
+- **Unlink passages:** right-click a passage and use the unlink option.
+- **Passage context menu:** right-click a passage for actions like copy/paste/make link.
+- **Spell check:** enabled in the passage editor (red underlines depending on your Windows language settings).
+- **Word count:** shown inside each passage editor panel (and in the bottom bar).
+- **Confirmed endings:** the toggle is in the **bottom bar** of the passage editor, **next to the word count**. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
+- **Tags bar:** tags are shown in the bottom bar of the passage editor.
+- **Default story format:** you can set SugarCube as the default (if enabled in settings in this build).
+- **Bulk import/export:** available via the story/library controls (see menus/toolbars in this build).
+- **Attach image to a passage:** available in the passage editor (**editor-only**; not exported).
+
+### Known limitations
+
+- **Attached images are editor-only** in this build (they won’t export with the story).
+- This is a **one-off release** and not actively maintained long-term.
+
+---
+
+## What’s different in this fork (full list)
 
 1. **Ctrl + mousewheel zoom** on the story map screen  
 2. **Spell check** in the passage text editor  
@@ -43,7 +66,7 @@ Official source: https://github.com/klembot/twinejs
 14. **Attach image to passages** (editor-only; no export)  
 15. **Confirmed ending** toggle per passage + shading + counts in summary  
 16. **Minimap**, toolbar info, and **zoom to fit**  
-17. **Bulk story import/export** + improved view/zoom toolbar options  
+17. **Bulk story import/export** + improved view/zoom options  
 18. Various **bug fixes**, UI improvements, and efficiency improvements
 
 ---
