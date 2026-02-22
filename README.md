@@ -14,7 +14,7 @@ Official source: https://github.com/klembot/twinejs
 
 ## Download
 
-- **Windows build:** use the **Releases** page for the latest downloadable EXE/ZIP.
+- **Windows build:** use the **Releases** page for the latest downloadable EXE.
 - **Source code:** this repository contains the full source.
 
 ---
