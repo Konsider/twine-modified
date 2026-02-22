@@ -12,9 +12,15 @@ Official source: https://github.com/klembot/twinejs
 
 ---
 
+## Screenshot
+
+![TwineJS Modified screenshot](docs/screen.png)
+
+---
+
 ## Download
 
-- **Windows build:** use the **Releases** page for the latest downloadable EXE.
+- **Windows build:** use the **Releases** page for the latest downloadable EXE/ZIP.
 - **Source code:** this repository contains the full source.
 
 ---
