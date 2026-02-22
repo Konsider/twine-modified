@@ -32,11 +32,14 @@ Official source: https://github.com/klembot/twinejs
 - **Create a passage quickly:** **double-click** an empty area of the story map.
 - **Link passages by dragging:** drag a passage onto another passage to create a link.
 - **Unlink passages:** right-click a passage and use the unlink option.
-- **Passage context menu:** right-click a passage for actions like copy/paste/make link.
+- **Passage context menu:** right-click a passage for **unlink**, **delete**, and **duplicate**.
 - **Spell check:** enabled in the passage editor (red underlines depending on your Windows language settings).
 - **Word count:** shown inside each passage editor panel (and in the bottom bar).
 - **Confirmed endings:** the toggle is in the **bottom bar** of the passage editor, **next to the word count**. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
 - **Tags bar:** tags are shown in the bottom bar of the passage editor.
+- **Default save directory:** you can set a default folder for saving `.twee` files.
+- **Remembered map position:** when switching stories (and after closing/restarting), the app remembers your last position on the story map.
+- **Go To / Find & Replace:** improved accuracy and highlighting.
 - **Default story format:** you can set SugarCube as the default (if enabled in settings in this build).
 - **Bulk import/export:** available via the story/library controls (see menus/toolbars in this build).
 - **Attach image to a passage:** available in the passage editor (**editor-only**; not exported).
@@ -55,7 +58,7 @@ Official source: https://github.com/klembot/twinejs
 3. **Word count per passage** shown in each passage editing panel  
 4. **Default save directory** for saving `.twee` files  
 5. Option to make **SugarCube the default story format** instead of Harlowe  
-6. **Right-click menu** on passages (copy, paste, make link)  
+6. **Right-click menu** on passages (**unlink**, **delete**, **duplicate**)  
 7. **Tags shown** in the passage editor bottom bar  
 8. **Sort stories by date**  
 9. App starts **max window size**  
@@ -67,7 +70,9 @@ Official source: https://github.com/klembot/twinejs
 15. **Confirmed ending** toggle per passage + shading + counts in summary  
 16. **Minimap**, toolbar info, and **zoom to fit**  
 17. **Bulk story import/export** + improved view/zoom options  
-18. Various **bug fixes**, UI improvements, and efficiency improvements
+18. Remembers last **story map position** when switching stories and after restart  
+19. Improved **Go To** and **Find & Replace** accuracy and highlighting  
+20. Other minor bug fixes and QoL improvements
 
 ---
 
