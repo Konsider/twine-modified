@@ -4,9 +4,18 @@ This repository is an **unofficial modified fork** of **TwineJS** (Twine 2), ori
 
 It exists because the official Twine app is missing (in my view) a number of quality-of-life features. This fork collects those improvements in one place so other people can use them, learn from them, or cherry-pick ideas.
 
+**Project status:** This is a one-off public release of my personal improvements. I’m not actively maintaining it long-term. Feel free to fork it and continue development if you want.
+
 **Not affiliated with or endorsed by the official Twine project.**  
 Official site: https://twinery.org  
 Official source: https://github.com/klembot/twinejs
+
+---
+
+## Download
+
+- **Windows build:** use the **Releases** page for the latest downloadable EXE/ZIP.
+- **Source code:** this repository contains the full source.
 
 ---
 
@@ -28,7 +37,7 @@ Official source: https://github.com/klembot/twinejs
 14. **Attach image to passages** (editor-only; no export)  
 15. **Confirmed ending** toggle per passage + shading + counts in summary  
 16. **Minimap**, toolbar info, and **zoom to fit**  
-17. **Bulk story import/export** + improved view/zoom options  
+17. **Bulk story import/export** + improved view/zoom toolbar options  
 18. Various **bug fixes**, UI improvements, and efficiency improvements
 
 ---
@@ -43,13 +52,6 @@ The story formats in minified format under `story-formats/` exist in separate re
 - Paperthin: https://github.com/klembot/paperthin
 - Snowman: https://github.com/klembot/snowman
 - SugarCube: https://github.com/tmedwards/sugarcube-2
-
----
-
-## Downloads
-
-If you publish builds, put them in GitHub **Releases** (right sidebar → Releases).  
-If you haven’t published builds yet, this repo still contains the full source.
 
 ---
 
