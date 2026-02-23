@@ -2,9 +2,9 @@
 
 This repository is an **unofficial modified fork** of **TwineJS** (Twine 2), originally by Chris Klimas and contributors.
 
-TwineJS has been around a long time, with many contributors and a long development history — yet plenty of small, practical usability issues still survive release after release. I’m a volunteer too and I’m not even a coder — I spent a couple of days fixing the stuff that annoyed me most and I’m sharing this unofficial fork.
+TwineJS has been around a long time, with many contributors and a long development history — yet plenty of small, practical usability paper-cuts still survive release after release. I’m a volunteer too and I’m not even a coder — I spent a couple of days fixing the stuff that kept tripping me up and I’m sharing this unofficial fork for anyone who finds it useful.
 
-**Project status:** This is a public release of my personal improvements. I’m not actively maintaining it long-term, but I may push occasional updates.
+**Project status:** Public release of my personal improvements. I may push occasional updates when I make more changes.
 
 **Not affiliated with or endorsed by the official Twine project.**  
 Official site: https://twinery.org  
@@ -36,8 +36,8 @@ Official source: https://github.com/klembot/twinejs
 - **Passage hover summary:** hover over a passage on the map to see a small popup summary.
 - **Spell check:** enabled in the passage editor (red underlines depending on your Windows language settings).
 - **Word count:** shown inside each passage editor panel (and in the bottom bar).
-- **Confirmed endings:** the toggle is in the **bottom bar** of the passage editor, **next to the word count**. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
-- **Amber hub toggle:** next to the confirmed ending toggle (bottom bar).
+- **Confirmed ending:** toggle is in the **bottom bar** of the passage editor, **next to the word count**. Use it to mark an ending as “done/confirmed” while you’re writing/testing. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
+- **Hub (Amber hub toggle):** toggle is next to the confirmed ending toggle (bottom bar). Use hubs for **story design** — mark passages where multiple paths converge before the next “phase” of the story begins.
 - **Tags bar:** tags are shown in the bottom bar of the passage editor.
 - **Default save directory:** you can set a default folder for saving `.twee` files.
 - **Remembered map position:** when switching stories (and after closing/restarting), the app remembers your last position on the story map.
