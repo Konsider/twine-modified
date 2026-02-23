@@ -2,9 +2,9 @@
 
 This repository is an **unofficial modified fork** of **TwineJS** (Twine 2), originally by Chris Klimas and contributors.
 
-It exists because the official Twine app is missing (in my view) a number of quality-of-life features. This fork collects those improvements in one place so other people can use them, learn from them, or cherry-pick ideas.
+TwineJS has been around a long time, with many contributors and a long development history — yet plenty of small, practical usability issues still survive release after release. I’m a volunteer too and I’m not even a coder — I spent a couple of days fixing the stuff that annoyed me most and I’m sharing this unofficial fork.
 
-**Project status:** This is a one-off public release of my personal improvements. I’m not actively maintaining it long-term. Feel free to fork it and continue development if you want.
+**Project status:** This is a public release of my personal improvements. I’m not actively maintaining it long-term, but I may push occasional updates.
 
 **Not affiliated with or endorsed by the official Twine project.**  
 Official site: https://twinery.org  
@@ -49,7 +49,6 @@ Official source: https://github.com/klembot/twinejs
 ### Known limitations
 
 - **Attached images are editor-only** in this build (they won’t export with the story).
-- This is a **one-off release** and not actively maintained long-term.
 
 ---
 
@@ -77,7 +76,7 @@ Official source: https://github.com/klembot/twinejs
 20. Small **hover popup passage summary** on the story map  
 21. Other minor bug fixes and QoL improvements  
 22. **Amber hub toggle** next to end toggle. Default theme to **dark**.  
-23. More **tag colours** and improved **tag UI**. (Note for future devs: a colour picker should be used from the start.)
+23. More **tag colours** + improved **tag UI** (note for future devs: a colour picker should be used from the start — retrofitting one now is a bigger refactor than I wanted, so this build adds more preset colours with swatch selection instead.)
 
 ---
 
