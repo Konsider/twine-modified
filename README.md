@@ -4,7 +4,7 @@ This repository is an **unofficial modified fork** of **TwineJS** (Twine 2), ori
 
 I made this fork because, personally, I felt TwineJS could use a lot of updates: bug fixes, workflow tweaks, and small usability improvements that make it nicer to use. I’m sharing my modified version here for anyone who wants it, and if any of these changes are useful for future official versions, feel free to cherry-pick whatever helps.
 
-**Project status:** Public release of my personal improvements. I may push occasional updates when I make more changes.
+**Project status:** Public release of my personal improvements. I probably won’t be actively updating this in the future.
 
 **Not affiliated with or endorsed by the official Twine project.**  
 Official site: https://twinery.org  
