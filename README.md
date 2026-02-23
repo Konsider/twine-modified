@@ -2,7 +2,7 @@
 
 This repository is an **unofficial modified fork** of **TwineJS** (Twine 2), originally by Chris Klimas and contributors.
 
-TwineJS has been around a long time, with many contributors and a long development history — yet plenty of small, practical usability paper-cuts still survive release after release. I’m a volunteer too and I’m not even a coder — I spent a couple of days fixing the stuff that kept tripping me up and I’m sharing this unofficial fork for anyone who finds it useful.
+I made this fork because, personally, I felt TwineJS could use a lot of updates: bug fixes, workflow tweaks, and small usability improvements that make it nicer to use. I’m sharing my modified version here for anyone who wants it, and if any of these changes are useful for future official versions, feel free to cherry-pick whatever helps.
 
 **Project status:** Public release of my personal improvements. I may push occasional updates when I make more changes.
 
