@@ -37,6 +37,7 @@ Official source: https://github.com/klembot/twinejs
 - **Spell check:** enabled in the passage editor (red underlines depending on your Windows language settings).
 - **Word count:** shown inside each passage editor panel (and in the bottom bar).
 - **Confirmed endings:** the toggle is in the **bottom bar** of the passage editor, **next to the word count**. Confirmed/unconfirmed passages are shaded differently and counts show in the summary.
+- **Amber hub toggle:** next to the confirmed ending toggle (bottom bar). Default theme is **dark**.
 - **Tags bar:** tags are shown in the bottom bar of the passage editor.
 - **Default save directory:** you can set a default folder for saving `.twee` files.
 - **Remembered map position:** when switching stories (and after closing/restarting), the app remembers your last position on the story map.
@@ -74,7 +75,9 @@ Official source: https://github.com/klembot/twinejs
 18. Remembers last **story map position** when switching stories and after restart  
 19. Improved **Go To** and **Find & Replace** accuracy and highlighting  
 20. Small **hover popup passage summary** on the story map  
-21. Other minor bug fixes and QoL improvements
+21. Other minor bug fixes and QoL improvements  
+22. **Amber hub toggle** next to end toggle. Default theme to **dark**.  
+23. More **tag colours** and improved **tag UI**. (Note for future devs: a colour picker should be used from the start.)
 
 ---
 
