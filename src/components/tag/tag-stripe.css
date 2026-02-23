@@ -38,3 +38,19 @@
 .tag-stripe .color-purple {
 	background: var(--purple);
 }
+
+.tag-stripe .color-teal {
+	background: var(--teal);
+}
+
+.tag-stripe .color-pink {
+	background: var(--pink);
+}
+
+.tag-stripe .color-brown {
+	background: var(--brown);
+}
+
+.tag-stripe .color-gray {
+	background: var(--gray);
+}

@@ -83,3 +83,34 @@ export function removePassageTag(
 		props: {tags: passage.tags.filter(t => t !== tagName)}
 	};
 }
+
+/**
+ * Removes a tag from ALL passages in a story, and cleans up the tag color.
+ */
+export function removeTagFromAllPassages(
+	story: Story,
+	tagName: string
+): Thunk<StoriesState, StoriesAction> {
+	return dispatch => {
+		for (const passage of story.passages) {
+			if (passage.tags.includes(tagName)) {
+				dispatch({
+					type: 'updatePassage',
+					passageId: passage.id,
+					storyId: story.id,
+					props: {tags: passage.tags.filter(t => t !== tagName)}
+				});
+			}
+		}
+
+		// Remove the tag color entry.
+		const newTagColors = {...story.tagColors};
+		delete newTagColors[tagName];
+
+		dispatch({
+			type: 'updateStory',
+			storyId: story.id,
+			props: {tagColors: newTagColors}
+		});
+	};
+}

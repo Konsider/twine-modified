@@ -12,6 +12,10 @@ export interface Passage {
 	 */
 	end: boolean;
 	/**
+	 * Is this passage a hub (key decision/branching point)?
+	 */
+	hub: boolean;
+	/**
 	 * Height of the passage in pixels.
 	 */
 	height: number;

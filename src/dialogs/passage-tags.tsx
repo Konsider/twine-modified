@@ -7,7 +7,8 @@ import {
 	setTagColor,
 	storyWithId,
 	renamePassageTag,
-	storyPassageTags
+	storyPassageTags,
+	removeTagFromAllPassages
 } from '../store/stories';
 import {useUndoableStoriesContext} from '../store/undoable-stories';
 import {Color} from '../util/color';
@@ -39,6 +40,19 @@ export const PassageTagsDialog: React.FC<PassageTagsDialogProps> = props => {
 		);
 	}
 
+	function handleRemoveAll(tagName: string) {
+		if (window.confirm(t('dialogs.passageTags.removeAllConfirm', {name: tagName}))) {
+			dispatch(
+				removeTagFromAllPassages(story, tagName),
+				t('undoChange.removeTagFromAll')
+			);
+		}
+	}
+
+	function getUsageCount(tagName: string): number {
+		return story.passages.filter(p => p.tags.includes(tagName)).length;
+	}
+
 	return (
 		<DialogCard
 			className="passage-tags-dialog"
@@ -56,6 +70,8 @@ export const PassageTagsDialog: React.FC<PassageTagsDialogProps> = props => {
 							name={tag}
 							onChangeColor={color => handleChangeColor(tag, color)}
 							onChangeName={newName => handleChangeTagName(tag, newName)}
+							onRemoveAll={() => handleRemoveAll(tag)}
+							usageCount={getUsageCount(tag)}
 						/>
 					))
 				) : (

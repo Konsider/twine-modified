@@ -5,8 +5,12 @@
 		"orange": "Orange",
 		"yellow": "Yellow",
 		"green": "Green",
+		"teal": "Teal",
 		"blue": "Blue",
-		"purple": "Purple"
+		"purple": "Purple",
+		"pink": "Pink",
+		"brown": "Brown",
+		"gray": "Gray"
 	},
 	"common": {
 		"add": "Add",
@@ -132,6 +136,8 @@
 			"passageCount_plural": "{{count}} passages",
 			"endingCount": "1 confirmed ending",
 			"endingCount_plural": "{{count}} confirmed endings",
+			"hubCount": "1 hub",
+			"hubCount_plural": "{{count}} hubs",
 			"unconfirmedEndingCount": "1 unconfirmed ending",
 			"unconfirmedEndingCount_plural": "{{count}} unconfirmed endings"
 		},
@@ -156,6 +162,9 @@
 		"tagCardButton": {
 			"alreadyAdded": "This tag name has already been added.",
 			"addLabel": "Add Tag",
+			"clickToPickColor": "Click to pick a color",
+			"existingTags": "Existing tags:",
+			"addExistingTag": "Add tag \"{{name}}\"",
 			"invalidName": "Please enter a valid tag name.",
 			"tagNameLabel": "Tag Name",
 			"tagsWithCount_plural": "Tags ({{count}})"
@@ -227,10 +236,18 @@
 			"endLabel": "End",
 			"endEnabled": "This passage is a confirmed ending. Click to unmark.",
 			"endDisabled": "Mark this passage as a confirmed ending",
-			"endHasLinks": "Cannot mark as ending: this passage has outgoing links"
+			"endHasLinks": "Cannot mark as ending: this passage has outgoing links",
+			"hubLabel": "Hub",
+			"hubEnabled": "This passage is a hub. Click to unmark.",
+			"hubDisabled": "Mark this passage as a hub (key branching point)",
+			"hubIsEnd": "Cannot mark as hub: this passage is an ending",
+			"hubNoLinks": "Cannot mark as hub: this passage has no outgoing links"
 		},
 		"passageTags": {
 			"noTags": "No tags have been added to passages in this story.",
+			"removeAll": "Remove all",
+			"removeAllTitle": "Remove \"{{name}}\" from all passages",
+			"removeAllConfirm": "Remove the tag \"{{name}}\" from all passages? This cannot be undone easily.",
 			"title": "Passage Tags"
 		},
 		"storyFormats": {
@@ -479,6 +496,7 @@
 		"movePassages": "Move Passages",
 		"renamePassage": "Rename Passage",
 		"removeTag": "Remove Tag",
+		"removeTagFromAll": "Remove Tag From All Passages",
 		"renameTag": "Rename Tag",
 		"replaceAllText": "Replace All"
 	}

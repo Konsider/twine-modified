@@ -58,6 +58,7 @@ export function publishPassage(passage: Passage, localId: number) {
 		`position="${passage.left},${passage.top}" ` +
 		`size="${passage.width},${passage.height}"` +
 		(passage.end ? ` data-end="true"` : '') +
+		(passage.hub ? ` data-hub="true"` : '') +
 		`>` +
 		`${escape(passage.text)}</tw-passagedata>`
 	);

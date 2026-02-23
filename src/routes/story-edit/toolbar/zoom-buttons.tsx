@@ -86,6 +86,11 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(
 		[story.passages]
 	);
 
+	const hubCount = React.useMemo(
+		() => story.passages.filter(p => p.hub).length,
+		[story.passages]
+	);
+
 	const orphanCount = orphanIds.size;
 
 	return (
@@ -136,6 +141,9 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(
 				)}
 				{confirmedEnds > 0 && (
 					<span className="stat-confirmed"> · {confirmedEnds} ✓end</span>
+				)}
+				{hubCount > 0 && (
+					<span className="stat-hub"> · {hubCount} hub</span>
 				)}
 				{unconfirmedEnds > 0 && (
 					<span className="stat-unconfirmed"> · {unconfirmedEnds} ?end</span>

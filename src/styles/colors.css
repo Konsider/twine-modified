@@ -76,6 +76,21 @@ green.
 	--light-purple: rgb(226, 217, 245); /* oklch(0.9 0.04 300) */
 	--light-purple-translucent: rgba(161, 122, 223, 0.1); /* oklch(0.66 0.15 300 / 0.1) */
 	--faint-purple: rgb(240, 236, 250); /* oklch(0.95 0.02 300) */
+
+	--dark-teal: rgb(18, 100, 100);
+	--teal: rgb(72, 190, 190);
+	--light-teal: rgb(200, 235, 235);
+	--faint-teal: rgb(230, 246, 246);
+
+	--dark-pink: rgb(150, 50, 90);
+	--pink: rgb(230, 130, 170);
+	--light-pink: rgb(245, 210, 225);
+	--faint-pink: rgb(252, 235, 242);
+
+	--dark-brown: rgb(100, 65, 30);
+	--brown: rgb(170, 120, 70);
+	--light-brown: rgb(230, 210, 190);
+	--faint-brown: rgb(244, 235, 225);
 }
 
 [data-app-theme='dark'] {
@@ -123,6 +138,21 @@ green.
 	--light-purple: rgb(51, 36, 75); /* oklch(0.3 0.07 300) */
 	--light-purple-translucent: rgba(142, 106, 199, 0.3); /* oklch(0.6 0.14 300 / 0.3) */
 	--faint-purple: rgb(25, 17, 39); /* oklch(0.2 0.045 300) */
+
+	--dark-teal: rgb(72, 210, 210);
+	--teal: rgb(50, 155, 155);
+	--light-teal: rgb(15, 55, 55);
+	--faint-teal: rgb(6, 28, 28);
+
+	--dark-pink: rgb(235, 145, 180);
+	--pink: rgb(185, 95, 135);
+	--light-pink: rgb(75, 28, 48);
+	--faint-pink: rgb(40, 14, 25);
+
+	--dark-brown: rgb(200, 155, 105);
+	--brown: rgb(150, 105, 60);
+	--light-brown: rgb(60, 40, 20);
+	--faint-brown: rgb(32, 20, 10);
 }
 
 body {

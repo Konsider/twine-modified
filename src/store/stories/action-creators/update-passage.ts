@@ -72,6 +72,18 @@ export function updatePassage(
 					storyId: story.id
 				});
 			}
+
+			// If this passage is marked as a hub but now has no outgoing links,
+			// auto-remove the hub flag (hubs should have links).
+
+			if (updatedPassage.hub && parseLinks(props.text, true).length === 0) {
+				dispatch({
+					props: {hub: false},
+					type: 'updatePassage',
+					passageId: passage.id,
+					storyId: story.id
+				});
+			}
 		}
 
 		if (props.name) {

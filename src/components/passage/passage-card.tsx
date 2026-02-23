@@ -50,6 +50,7 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			classNames('passage-card', {
 				empty: isEmpty,
 				'is-end': passage.end,
+				'is-hub': passage.hub,
 				'is-unconfirmed-end': isUnconfirmedEnd,
 				'is-orphan': isOrphan,
 				selected: passage.selected

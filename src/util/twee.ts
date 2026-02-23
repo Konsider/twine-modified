@@ -35,7 +35,8 @@ export function passageToTwee(passage: Passage) {
 	const metadata = JSON.stringify({
 		position: `${passage.left},${passage.top}`,
 		size: `${passage.width},${passage.height}`,
-		...(passage.end ? {end: true} : {})
+		...(passage.end ? {end: true} : {}),
+		...(passage.hub ? {hub: true} : {})
 	}).replace(/\s+/g, '');
 	const escapedText = escapeForTweeText(passage.text);
 
@@ -127,6 +128,10 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 
 			if (metadata.end === true) {
 				passage.end = true;
+			}
+
+			if (metadata.hub === true) {
+				passage.hub = true;
 			}
 		} catch (error) {
 			console.warn(`Couldn't parse passage metadata ${rawMetadata}`);

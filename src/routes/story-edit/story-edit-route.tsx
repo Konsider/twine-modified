@@ -255,7 +255,8 @@ export const InnerStoryEditRoute: React.FC = () => {
 					top: passage.top + 60,
 					width: passage.width,
 					height: passage.height,
-					end: passage.end
+					end: passage.end,
+					hub: passage.hub
 				}
 			},
 			'Duplicated passage'

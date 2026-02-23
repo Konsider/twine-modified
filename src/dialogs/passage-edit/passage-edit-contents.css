@@ -101,6 +101,30 @@
 	color: var(--dark-purple);
 }
 
+.passage-edit-tag.color-teal {
+	background-color: var(--faint-teal);
+	border-color: var(--light-teal);
+	color: var(--dark-teal);
+}
+
+.passage-edit-tag.color-pink {
+	background-color: var(--faint-pink);
+	border-color: var(--light-pink);
+	color: var(--dark-pink);
+}
+
+.passage-edit-tag.color-brown {
+	background-color: var(--faint-brown);
+	border-color: var(--light-brown);
+	color: var(--dark-brown);
+}
+
+.passage-edit-tag.color-gray {
+	background-color: var(--faint-gray);
+	border-color: var(--light-gray);
+	color: var(--dark-gray);
+}
+
 .passage-edit-word-count {
 	color: var(--dark-gray);
 	white-space: nowrap;
@@ -143,6 +167,38 @@
 }
 
 .passage-edit-end-toggle:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.passage-edit-hub-toggle {
+	display: inline-flex;
+	align-items: center;
+	padding: 1px 10px;
+	border-radius: 10px;
+	font-size: 0.9em;
+	white-space: nowrap;
+	background-color: var(--off-white);
+	border: 1px solid var(--light-gray);
+	color: var(--dark-gray);
+	cursor: pointer;
+	flex-shrink: 0;
+	transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+	line-height: 1.4;
+}
+
+.passage-edit-hub-toggle:hover:not(:disabled) {
+	border-color: hsl(40, 65%, 50%);
+	color: hsl(40, 60%, 30%);
+}
+
+.passage-edit-hub-toggle.is-hub {
+	background-color: hsl(40, 75%, 90%);
+	border-color: hsl(40, 65%, 50%);
+	color: hsl(40, 60%, 30%);
+}
+
+.passage-edit-hub-toggle:disabled {
 	opacity: 0.4;
 	cursor: not-allowed;
 }

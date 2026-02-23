@@ -91,6 +91,8 @@ export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
 					ctx.fillStyle = '#4a90d9';
 				} else if (p.end) {
 					ctx.fillStyle = '#5cb85c';
+				} else if (p.hub) {
+					ctx.fillStyle = '#c89832';
 				} else if (p.text.trim() !== '' && parseLinks(p.text, true).length === 0) {
 					ctx.fillStyle = '#9b59b6';
 				} else if (orphanIds.has(p.id)) {

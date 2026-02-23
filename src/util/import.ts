@@ -113,6 +113,7 @@ function domToObject(storyEl: Element): ImportedStory {
 				width: size ? float(size[0]) : undefined,
 				height: size ? float(size[1]) : undefined,
 				end: passageEl.getAttribute('data-end') === 'true',
+				hub: passageEl.getAttribute('data-hub') === 'true',
 				tags: passageEl.getAttribute('tags')
 					? passageEl.getAttribute('tags')!.split(/\s+/)
 					: [],

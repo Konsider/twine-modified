@@ -25,6 +25,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 		props;
 	const [newTagName, setNewTagName] = React.useState('');
 	const [open, setOpen] = React.useState(false);
+	const [justCreatedTag, setJustCreatedTag] = React.useState<string | null>(null);
 	const {t} = useTranslation();
 	const tagCompletions = React.useMemo(
 		() => allTags.filter(tag => !tags.includes(tag)),
@@ -60,6 +61,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 
 		if (canAdd && newTagName.trim() !== '') {
 			onAdd(newTagName);
+			setJustCreatedTag(newTagName);
 			setNewTagName('');
 		}
 	}
@@ -69,6 +71,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 
 		if (!value) {
 			setNewTagName('');
+			setJustCreatedTag(null);
 		}
 	}
 
@@ -100,14 +103,38 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 						/>
 						{validationMessage && <p>{validationMessage}</p>}
 					</form>
+					{tagCompletions.length > 0 && (
+						<div className="available-tags">
+							<span className="available-tags-label">
+								{t('components.tagCardButton.existingTags')}
+							</span>
+							<div className="available-tags-chips">
+								{tagCompletions.map(tag => (
+									<button
+										key={tag}
+										className={`available-tag-chip color-${tagColors[tag] || 'none'}`}
+										onClick={() => onAdd(tag)}
+										type="button"
+										title={t('components.tagCardButton.addExistingTag', {name: tag})}
+									>
+										+ {tag}
+									</button>
+								))}
+							</div>
+						</div>
+					)}
 					<div className="tags">
 						{tags.map(tag => (
 							<TagButton
 								key={tag}
 								name={tag}
 								color={tagColors[tag]}
-								onChangeColor={color => onChangeColor(tag, color)}
+								onChangeColor={color => {
+									onChangeColor(tag, color);
+									if (tag === justCreatedTag) setJustCreatedTag(null);
+								}}
 								onRemove={() => onRemove(tag)}
+								defaultExpanded={tag === justCreatedTag}
 							/>
 						))}
 					</div>

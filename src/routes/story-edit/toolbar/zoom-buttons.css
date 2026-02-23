@@ -35,6 +35,10 @@
 	color: var(--dark-green);
 }
 
+.zoom-buttons .passage-stats .stat-hub {
+	color: hsl(40, 65%, 45%);
+}
+
 .zoom-buttons .passage-stats .stat-unconfirmed {
 	color: var(--dark-purple);
 }

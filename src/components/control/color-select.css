@@ -85,16 +85,45 @@
 	stroke: var(--purple);
 }
 
+.color-select > label > .control > .proxy.teal svg {
+	fill: var(--teal);
+	stroke: var(--teal);
+}
+
+.color-select > label > .control > .proxy.pink svg {
+	fill: var(--pink);
+	stroke: var(--pink);
+}
+
+.color-select > label > .control > .proxy.brown svg {
+	fill: var(--brown);
+	stroke: var(--brown);
+}
+
+.color-select > label > .control > .proxy.gray svg {
+	fill: var(--gray);
+	stroke: var(--gray);
+}
+
 .color-select > label > .control > select {
 	-webkit-appearance: none;
 	background-color: var(--white);
 	background-position: center right;
 	background-repeat: no-repeat;
 	border: none;
-	color: var(--dark-gray);
+	color: var(--black);
 	font: 100% var(--font-system);
 	height: var(--control-height);
 	padding: var(--grid-size) calc(var(--grid-size) + 16px) var(--grid-size)
 		calc(var(--grid-size) * 2 + 16px);
 	width: 100%;
+}
+
+[data-app-theme='dark'] .color-select > label > .control > select {
+	color-scheme: dark;
+}
+
+[data-app-theme='dark'] .color-select > label > .control > select option {
+	background-color: var(--white);
+	color: var(--black);
 }

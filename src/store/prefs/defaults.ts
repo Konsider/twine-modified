@@ -1,7 +1,7 @@
 import {PrefsState} from './prefs.types';
 
 export const defaults = (): PrefsState => ({
-	appTheme: 'system',
+	appTheme: 'dark',
 	codeEditorFontFamily: 'var(--font-monospaced)',
 	codeEditorFontScale: 1,
 	defaultSaveDirectory: '',

@@ -121,7 +121,19 @@ export const PassageEditContents: React.FC<
 			// Don't allow marking as end if there are outgoing links.
 			return;
 		}
-		dispatch(updatePassage(story, passage, {end: !passage.end}));
+		dispatch(updatePassage(story, passage, {end: !passage.end, ...(!passage.end ? {hub: false} : {})}));
+	}, [dispatch, passage, story, hasOutgoingLinks]);
+
+	const handleToggleHub = React.useCallback(() => {
+		if (!passage.hub && !hasOutgoingLinks) {
+			// Don't allow marking as hub if there are no outgoing links.
+			return;
+		}
+		if (passage.end) {
+			// Can't be a hub if it's an end.
+			return;
+		}
+		dispatch(updatePassage(story, passage, {hub: !passage.hub}));
 	}, [dispatch, passage, story, hasOutgoingLinks]);
 
 	// When spell check is on, the passage editor uses a plain textarea
@@ -179,6 +191,22 @@ export const PassageEditContents: React.FC<
 					</div>
 				)}
 				<div className="passage-edit-status-right">
+					<button
+						className={`passage-edit-hub-toggle ${passage.hub ? 'is-hub' : ''}`}
+						onClick={handleToggleHub}
+						disabled={passage.end || (!passage.hub && !hasOutgoingLinks)}
+						title={
+							passage.end
+								? t('dialogs.passageEdit.hubIsEnd')
+								: !passage.hub && !hasOutgoingLinks
+									? t('dialogs.passageEdit.hubNoLinks')
+									: passage.hub
+										? t('dialogs.passageEdit.hubEnabled')
+										: t('dialogs.passageEdit.hubDisabled')
+						}
+					>
+						{passage.hub ? '✓ ' : ''}{t('dialogs.passageEdit.hubLabel')}
+					</button>
 					<button
 						className={`passage-edit-end-toggle ${passage.end ? 'is-end' : ''}`}
 						onClick={handleToggleEnd}

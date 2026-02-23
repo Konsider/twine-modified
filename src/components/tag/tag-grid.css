@@ -44,3 +44,19 @@
 .tag-grid .color-purple {
 	background: var(--purple);
 }
+
+.tag-grid .color-teal {
+	background: var(--teal);
+}
+
+.tag-grid .color-pink {
+	background: var(--pink);
+}
+
+.tag-grid .color-brown {
+	background: var(--brown);
+}
+
+.tag-grid .color-gray {
+	background: var(--gray);
+}

@@ -2,9 +2,22 @@
 @import '../../styles/colors.css';
 
 .tag-editor {
-	display: grid;
-	grid-gap: var(--grid-size);
-	grid-template-columns: repeat(3, min-content);
+	display: flex;
+	flex-direction: column;
+	gap: 4px;
+	padding: 6px 0;
+	border-bottom: 1px solid var(--light-gray);
+}
+
+.tag-editor:last-child {
+	border-bottom: none;
+}
+
+.tag-editor-top {
+	display: flex;
+	align-items: center;
+	gap: var(--grid-size);
+	flex-wrap: wrap;
 }
 
 .tag-editor .tag-name {
@@ -16,40 +29,103 @@
 	height: var(--control-height);
 	padding: var(--grid-size);
 	white-space: nowrap;
+	gap: 4px;
+}
+
+.tag-editor .tag-usage-count {
+	font-size: 0.8em;
+	opacity: 0.7;
 }
 
 .tag-editor .tag-name.color-red {
-	background-color: var(--faint-red);
-	border: 1px solid var(--light-red);
-	color: var(--dark-red);
+	background-color: var(--faint-red); border: 1px solid var(--light-red); color: var(--dark-red);
 }
-
 .tag-editor .tag-name.color-orange {
-	background-color: var(--faint-orange);
-	border: 1px solid var(--light-orange);
-	color: var(--dark-orange);
+	background-color: var(--faint-orange); border: 1px solid var(--light-orange); color: var(--dark-orange);
 }
-
 .tag-editor .tag-name.color-yellow {
-	background-color: var(--faint-yellow);
-	border: 1px solid var(--light-yellow);
-	color: var(--dark-yellow);
+	background-color: var(--faint-yellow); border: 1px solid var(--light-yellow); color: var(--dark-yellow);
 }
-
 .tag-editor .tag-name.color-green {
-	background-color: var(--faint-green);
-	border: 1px solid var(--light-green);
-	color: var(--dark-green);
+	background-color: var(--faint-green); border: 1px solid var(--light-green); color: var(--dark-green);
 }
-
+.tag-editor .tag-name.color-teal {
+	background-color: var(--faint-teal); border: 1px solid var(--light-teal); color: var(--dark-teal);
+}
 .tag-editor .tag-name.color-blue {
-	background-color: var(--faint-blue);
-	border: 1px solid var(--light-blue);
-	color: var(--dark-blue);
+	background-color: var(--faint-blue); border: 1px solid var(--light-blue); color: var(--dark-blue);
+}
+.tag-editor .tag-name.color-purple {
+	background-color: var(--faint-purple); border: 1px solid var(--light-purple); color: var(--dark-purple);
+}
+.tag-editor .tag-name.color-pink {
+	background-color: var(--faint-pink); border: 1px solid var(--light-pink); color: var(--dark-pink);
+}
+.tag-editor .tag-name.color-brown {
+	background-color: var(--faint-brown); border: 1px solid var(--light-brown); color: var(--dark-brown);
+}
+.tag-editor .tag-name.color-gray {
+	background-color: var(--faint-gray); border: 1px solid var(--light-gray); color: var(--dark-gray);
 }
 
-.tag-editor .tag-name.color-purple {
-	background-color: var(--faint-purple);
-	border: 1px solid var(--light-purple);
-	color: var(--dark-purple);
+.tag-remove-all-btn {
+	display: inline-flex;
+	align-items: center;
+	gap: 3px;
+	padding: 2px 8px;
+	border: 1px solid var(--light-red);
+	border-radius: 4px;
+	background: var(--faint-red);
+	color: var(--dark-red);
+	font-size: 0.78em;
+	cursor: pointer;
+	font-family: var(--font-system);
+	transition: background-color 0.12s;
+	white-space: nowrap;
 }
+
+.tag-remove-all-btn:hover {
+	background: var(--light-red);
+}
+
+.tag-editor-swatches {
+	display: flex;
+	gap: 3px;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.tag-editor-swatch {
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	padding: 0;
+	transition: transform 0.1s, border-color 0.1s;
+}
+
+.tag-editor-swatch:hover {
+	transform: scale(1.2);
+}
+
+.tag-editor-swatch.active {
+	border-color: var(--black);
+}
+
+.tag-editor-swatch.swatch-none {
+	background: var(--off-white);
+	border: 2px dashed var(--gray);
+}
+.tag-editor-swatch.swatch-none.active { border-style: solid; border-color: var(--black); }
+
+.tag-editor-swatch.swatch-red { background-color: var(--red); }
+.tag-editor-swatch.swatch-orange { background-color: var(--orange); }
+.tag-editor-swatch.swatch-yellow { background-color: var(--yellow); }
+.tag-editor-swatch.swatch-green { background-color: var(--green); }
+.tag-editor-swatch.swatch-teal { background-color: var(--teal); }
+.tag-editor-swatch.swatch-blue { background-color: var(--blue); }
+.tag-editor-swatch.swatch-purple { background-color: var(--purple); }
+.tag-editor-swatch.swatch-pink { background-color: var(--pink); }
+.tag-editor-swatch.swatch-brown { background-color: var(--brown); }
+.tag-editor-swatch.swatch-gray { background-color: var(--gray); }

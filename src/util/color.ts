@@ -6,8 +6,12 @@ export const colors = [
 	'orange',
 	'yellow',
 	'green',
+	'teal',
 	'blue',
-	'purple'
+	'purple',
+	'pink',
+	'brown',
+	'gray'
 ];
 
 export type Color = typeof colors[number];
@@ -31,8 +35,6 @@ export function hueString(value: string): number {
 export function colorString(value: string): Color {
 	const hue = hueString(value);
 
-	// Red clusters at the top and bottom of the hue range.
-
 	if (hue < 20) {
 		return 'red';
 	}
@@ -45,16 +47,24 @@ export function colorString(value: string): Color {
 		return 'yellow';
 	}
 
-	if (hue < 180) {
+	if (hue < 160) {
 		return 'green';
+	}
+
+	if (hue < 200) {
+		return 'teal';
 	}
 
 	if (hue < 270) {
 		return 'blue';
 	}
 
-	if (hue < 330) {
+	if (hue < 310) {
 		return 'purple';
+	}
+
+	if (hue < 345) {
+		return 'pink';
 	}
 
 	return 'red';

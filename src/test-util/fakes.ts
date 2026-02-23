@@ -16,6 +16,7 @@ export function fakeAppInfo(props?: Partial<AppInfo>): AppInfo {
 export function fakePassage(props?: Partial<Passage>): Passage {
 	return {
 		end: false,
+		hub: false,
 		highlighted: false,
 		id: faker.string.uuid(),
 		story: '-1',

@@ -4,6 +4,7 @@ import {Passage, Story} from './stories.types';
 export const passageDefaults = (): Omit<Passage, 'id' | 'story'> => ({
 	end: false,
 	height: 100,
+	hub: false,
 	highlighted: false,
 	left: 0,
 	name: 'Start',

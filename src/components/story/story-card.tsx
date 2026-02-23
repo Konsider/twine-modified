@@ -69,6 +69,10 @@ export const StoryCard: React.FC<StoryCardProps> = props => {
 									count: story.passages.filter(p => p.end).length
 								})}
 								<br />
+								{t('components.storyCard.hubCount', {
+									count: story.passages.filter(p => p.hub).length
+								})}
+								<br />
 								{t('components.storyCard.unconfirmedEndingCount', {
 									count: unconfirmedEndingCount
 								})}

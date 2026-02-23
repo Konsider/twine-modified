@@ -8,3 +8,90 @@
 	margin-bottom: var(--grid-size);
 	margin-right: var(--grid-size);
 }
+
+.tag-card-button .available-tags {
+	padding-top: var(--grid-size);
+	border-top: 1px solid var(--faint-gray);
+}
+
+.tag-card-button .available-tags-label {
+	display: block;
+	font-size: 0.75rem;
+	color: var(--gray);
+	margin-bottom: 4px;
+}
+
+.tag-card-button .available-tags-chips {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px;
+}
+
+.tag-card-button .available-tag-chip {
+	display: inline-flex;
+	align-items: center;
+	padding: 1px 8px;
+	border-radius: 10px;
+	font-size: 0.8em;
+	border: 1px solid var(--light-gray);
+	background: var(--white);
+	color: var(--black);
+	cursor: pointer;
+	transition: background-color 0.12s, border-color 0.12s;
+	line-height: 1.5;
+}
+
+.tag-card-button .available-tag-chip:hover {
+	background: var(--faint-gray);
+	border-color: var(--gray);
+}
+
+.tag-card-button .available-tag-chip.color-red {
+	border-color: var(--red);
+	color: var(--dark-red);
+}
+
+.tag-card-button .available-tag-chip.color-orange {
+	border-color: var(--orange);
+	color: var(--dark-orange);
+}
+
+.tag-card-button .available-tag-chip.color-yellow {
+	border-color: var(--yellow);
+	color: var(--dark-yellow);
+}
+
+.tag-card-button .available-tag-chip.color-green {
+	border-color: var(--green);
+	color: var(--dark-green);
+}
+
+.tag-card-button .available-tag-chip.color-blue {
+	border-color: var(--blue);
+	color: var(--dark-blue);
+}
+
+.tag-card-button .available-tag-chip.color-purple {
+	border-color: var(--purple);
+	color: var(--dark-purple);
+}
+
+.tag-card-button .available-tag-chip.color-teal {
+	border-color: var(--teal);
+	color: var(--dark-teal);
+}
+
+.tag-card-button .available-tag-chip.color-pink {
+	border-color: var(--pink);
+	color: var(--dark-pink);
+}
+
+.tag-card-button .available-tag-chip.color-brown {
+	border-color: var(--brown);
+	color: var(--dark-brown);
+}
+
+.tag-card-button .available-tag-chip.color-gray {
+	border-color: var(--gray);
+	color: var(--dark-gray);
+}

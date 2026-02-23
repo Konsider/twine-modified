@@ -78,6 +78,16 @@
 	box-shadow: 0 0 0 2.5px var(--green), 0 0 8px rgba(60, 160, 60, 0.35);
 }
 
+.passage-card.is-hub .card {
+	background: hsl(40, 75%, 90%);
+	border: 1px solid hsl(40, 65%, 50%);
+}
+
+.passage-card.is-hub.selected .card {
+	background: hsl(40, 75%, 90%);
+	box-shadow: 0 0 0 2.5px hsl(40, 65%, 50%), 0 0 8px rgba(190, 150, 50, 0.35);
+}
+
 .passage-card.is-unconfirmed-end .card {
 	background: var(--light-purple);
 	border: 1px solid var(--purple);
@@ -133,6 +143,16 @@
 [data-app-theme='dark'] .passage-card.is-end.selected .card {
 	background: var(--light-green);
 	box-shadow: 0 0 0 2.5px var(--green), 0 0 8px rgba(60, 160, 60, 0.35);
+}
+
+[data-app-theme='dark'] .passage-card.is-hub .card {
+	background: hsl(40, 45%, 18%);
+	border: 1px solid hsl(40, 60%, 45%);
+}
+
+[data-app-theme='dark'] .passage-card.is-hub.selected .card {
+	background: hsl(40, 45%, 18%);
+	box-shadow: 0 0 0 2.5px hsl(40, 60%, 45%), 0 0 8px rgba(190, 150, 50, 0.35);
 }
 
 [data-app-theme='dark'] .passage-card.is-unconfirmed-end .card {
