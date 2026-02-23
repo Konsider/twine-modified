@@ -105,7 +105,7 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 			if (typeof metadata.position === 'string') {
 				const [left, top] = metadata.position.split(',').map(parseFloat);
 
-				if (typeof left === 'number' && typeof top === 'number') {
+				if (typeof left === 'number' && typeof top === 'number' && !isNaN(left) && !isNaN(top)) {
 					passage.left = left;
 					passage.top = top;
 				} else {
@@ -118,7 +118,7 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 			if (typeof metadata.size === 'string') {
 				const [width, height] = metadata.size.split(',').map(parseFloat);
 
-				if (typeof width === 'number' && typeof height === 'number') {
+				if (typeof width === 'number' && typeof height === 'number' && !isNaN(width) && !isNaN(height)) {
 					passage.width = width;
 					passage.height = height;
 				} else {

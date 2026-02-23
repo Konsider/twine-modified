@@ -62,6 +62,22 @@
 	filter: invert();
 }
 
+[data-app-theme='dark'] .text-select-control select {
+	/*
+	Override the translucent gradient in dark mode — Electron's native
+	<select> renders a white base layer that bleeds through, giving
+	light-text-on-white.  Use a solid dark background instead.
+	*/
+	background: var(--white);
+	border-color: var(--light-gray);
+	color: var(--dark-gray);
+}
+
+[data-app-theme='dark'] .text-select-control select option {
+	background: var(--white);
+	color: var(--dark-gray);
+}
+
 .text-select.orientation-vertical > label {
 	align-items: flex-start;
 	flex-direction: column;

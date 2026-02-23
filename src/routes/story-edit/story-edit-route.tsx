@@ -6,6 +6,7 @@ import {DialogsContextProvider} from '../../dialogs';
 import {
 	createUntitledPassage,
 	storyWithId,
+	updatePassage,
 	updateStory,
 	useStoriesContext
 } from '../../store/stories';
@@ -85,28 +86,58 @@ export const InnerStoryEditRoute: React.FC = () => {
 	);
 	useInitialPassageCreation(story, getCenter);
 
-	// Centralized orphan detection — computed once, shared with minimap,
-	// toolbar stats, and passage map to avoid redundant O(n²) work.
-	const orphanIds = React.useMemo(() => {
+	// Stable fingerprint that only changes when passage text, names, IDs,
+	// or the start passage change — NOT on selection, highlight, or drag.
+	// This prevents the expensive link-analysis work from re-running on
+	// every interaction.
+	const passageFingerprint = React.useMemo(
+		() =>
+			story.passages.map(p => `${p.id}\0${p.name}\0${p.text}\0${p.end}\0${p.hub}`).join('\n'),
+		[story.passages]
+	);
+
+	// Centralized passage analysis — computed once, shared with minimap,
+	// toolbar stats, and passage map to avoid redundant O(n) parseLinks work.
+	const passageAnalysis = React.useMemo(() => {
 		const nameToId = new Map<string, string>();
 		for (const p of story.passages) nameToId.set(p.name, p.id);
 
 		const linkedTo = new Set<string>();
+		const deadEndIds = new Set<string>();
+		let confirmedEnds = 0;
+		let unconfirmedEnds = 0;
+		let hubCount = 0;
+
 		for (const p of story.passages) {
-			for (const targetName of parseLinks(p.text, true)) {
+			const links = parseLinks(p.text, true);
+
+			for (const targetName of links) {
 				const targetId = nameToId.get(targetName);
 				if (targetId) linkedTo.add(targetId);
 			}
+
+			if (p.end) {
+				confirmedEnds++;
+			} else if (p.text.trim() !== '' && links.length === 0) {
+				deadEndIds.add(p.id);
+				unconfirmedEnds++;
+			}
+
+			if (p.hub) hubCount++;
 		}
 
-		const result = new Set<string>();
+		const orphanIds = new Set<string>();
 		for (const p of story.passages) {
 			if (p.id !== story.startPassage && !linkedTo.has(p.id)) {
-				result.add(p.id);
+				orphanIds.add(p.id);
 			}
 		}
-		return result;
-	}, [story.passages, story.startPassage]);
+
+		return {orphanIds, deadEndIds, confirmedEnds, unconfirmedEnds, hubCount};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [passageFingerprint, story.startPassage]);
+
+	const {orphanIds} = passageAnalysis;
 
 	const handleMinimapZoom = React.useCallback(
 		(newZoom: number) => {
@@ -201,17 +232,21 @@ export const InnerStoryEditRoute: React.FC = () => {
 					const inner = match.slice(2, -2);
 					return resolveLink(inner) === targetName ? '' : match;
 				}
-			);
+			)
+			// Collapse runs of whitespace (but not newlines) left behind.
+			.replace(/[ \t]{2,}/g, ' ')
+			// Remove lines that are now empty or whitespace-only.
+			.replace(/\n[ \t]*\n/g, '\n')
+			// Trim trailing whitespace on each line.
+			.replace(/[ \t]+$/gm, '');
 
 			setContextMenu(null);
 
+			// Use the action creator with dontUpdateOthers to skip
+			// newly-linked-passage creation and orphan auto-deletion
+			// (which would delete the passage we just unlinked from).
 			undoableStoriesDispatch(
-				{
-					type: 'updatePassage',
-					passageId: passage.id,
-					storyId: story.id,
-					props: {text: newText}
-				},
+				updatePassage(story, passage, {text: newText}, {dontUpdateOthers: true}),
 				'Unlinked passage'
 			);
 		},
@@ -235,13 +270,17 @@ export const InnerStoryEditRoute: React.FC = () => {
 		// Avoid name collisions.
 		let finalName = copyName;
 		let suffix = 2;
-		while (story.passages.some(p => p.name === finalName)) {
+		while (story.passages.some(p => p.name === finalName) && suffix <= 1000) {
 			finalName = copyName + ' ' + suffix;
 			suffix++;
 		}
 
 		const newId = uuid();
 
+		// Raw dispatch is correct here: there is no createPassage action
+		// creator (only createUntitledPassage), and the reducer already
+		// guards against duplicate IDs/names.  We handle collision
+		// avoidance manually above.
 		undoableStoriesDispatch(
 			{
 				type: 'createPassage',
@@ -290,6 +329,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 				mainContent={mainContent}
 				onOpenFuzzyFinder={() => setFuzzyFinderOpen(true)}
 				orphanIds={orphanIds}
+				passageAnalysis={passageAnalysis}
 				story={story}
 				displayMode={displayMode}
 				onChangeDisplayMode={setDisplayMode}
@@ -323,6 +363,7 @@ export const InnerStoryEditRoute: React.FC = () => {
 			</MainContent>
 			<StoryMinimap
 				orphanIds={orphanIds}
+				deadEndIds={passageAnalysis.deadEndIds}
 				passages={story.passages}
 				startPassageId={story.startPassage}
 				zoom={visibleZoom}

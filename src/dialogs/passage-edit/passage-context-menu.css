@@ -47,3 +47,21 @@
 	opacity: 0.5;
 	margin-left: 24px;
 }
+
+[data-app-theme='dark'] .passage-context-menu {
+	background: var(--light-gray);
+	border-color: var(--gray);
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+[data-app-theme='dark'] .passage-context-menu-item {
+	color: var(--dark-gray);
+}
+
+[data-app-theme='dark'] .passage-context-menu-item:hover {
+	background-color: var(--light-gray-translucent);
+}
+
+[data-app-theme='dark'] .passage-context-menu-separator {
+	background-color: var(--gray);
+}

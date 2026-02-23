@@ -19,6 +19,7 @@ import {
 import {useUndoableStoriesContext} from '../../store/undoable-stories';
 import {Color} from '../../util/color';
 import {TagCardButton} from '../../components/tag/tag-card-button';
+import {TwineElectronWindow} from '../../electron/shared';
 
 export interface PassageToolbarProps {
 	disabled?: boolean;
@@ -51,6 +52,12 @@ export const PassageToolbar: React.FC<PassageToolbarProps> = props => {
 		// try to recreate the passage as it's been renamed--it sees new links in
 		// existing passages, updates them, but does not see that the passage name
 		// has been updated since that hasn't happened yet.
+
+		// If this passage has an image, update the manifest key in Electron.
+		if (passage.image) {
+			const {twineElectron} = window as TwineElectronWindow;
+			twineElectron?.renamePassageImage(story.ifid, passage.name, name);
+		}
 
 		dispatch(updatePassage(story, passage, {name}, {dontUpdateOthers: true}));
 	}

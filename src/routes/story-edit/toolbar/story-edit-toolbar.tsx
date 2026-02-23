@@ -8,20 +8,21 @@ import {Point} from '../../../util/geometry';
 import {PassageActions} from './passage/passage-actions';
 import {StoryActions} from './story/story-actions';
 import {UndoRedoButtons} from './undo-redo-buttons';
-import {ZoomButtons} from './zoom-buttons';
+import {ZoomButtons, PassageAnalysis} from './zoom-buttons';
 
 export interface StoryEditToolbarProps {
 	getCenter: () => Point;
 	mainContent: React.RefObject<HTMLElement>;
 	onOpenFuzzyFinder: () => void;
 	orphanIds?: Set<string>;
+	passageAnalysis?: PassageAnalysis;
 	story: Story;
 	displayMode: PassageDisplayMode;
 	onChangeDisplayMode: (mode: PassageDisplayMode) => void;
 }
 
 export const StoryEditToolbar: React.FC<StoryEditToolbarProps> = props => {
-	const {getCenter, mainContent, onOpenFuzzyFinder, orphanIds, story, displayMode, onChangeDisplayMode} = props;
+	const {getCenter, mainContent, onOpenFuzzyFinder, orphanIds, passageAnalysis, story, displayMode, onChangeDisplayMode} = props;
 	const {t} = useTranslation();
 
 	return (
@@ -34,6 +35,7 @@ export const StoryEditToolbar: React.FC<StoryEditToolbarProps> = props => {
 						displayMode={displayMode}
 						onChangeDisplayMode={onChangeDisplayMode}
 						orphanIds={orphanIds}
+						passageAnalysis={passageAnalysis}
 					/>
 					<UndoRedoButtons />
 				</>

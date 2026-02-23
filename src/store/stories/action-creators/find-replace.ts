@@ -130,27 +130,43 @@ export function replaceInStory(
 		const scope = flags.searchScope
 			?? (flags.includePassageNames ? 'both' : 'text');
 
+		// Snapshot passage data before dispatching any updates, because
+		// each updatePassage dispatch can trigger relink side-effects that
+		// mutate story.passages, causing later iterations to see stale text.
+		const passageSnapshot = story.passages.map(p => ({
+			id: p.id,
+			name: p.name,
+			text: p.text,
+			story: p.story
+		}));
+
 		if (scope !== 'text') {
 			// Do replaces in passage names first, so that if a replace will change
 			// both a link and a passage name, the updatePassage action will see that
 			// the passage exists when the link is changed, and not create a new
 			// passage that will conflict with the existing one.
 			
-			for (const passage of story.passages) {
-				const name = replaceText(passage.name, searchFor, replaceWith, flags);
+			for (const snap of passageSnapshot) {
+				const name = replaceText(snap.name, searchFor, replaceWith, flags);
 
-				if (name !== passage.name) {
-					updatePassage(story, passage, {name})(dispatch, getState);
+				if (name !== snap.name) {
+					const passage = story.passages.find(p => p.id === snap.id);
+					if (passage) {
+						updatePassage(story, passage, {name})(dispatch, getState);
+					}
 				}
 			}
 		}
 
 		if (scope !== 'names') {
-			for (const passage of story.passages) {
-				const text = replaceText(passage.text, searchFor, replaceWith, flags);
+			for (const snap of passageSnapshot) {
+				const text = replaceText(snap.text, searchFor, replaceWith, flags);
 
-				if (text !== passage.text) {
-					updatePassage(story, passage, {text})(dispatch, getState);
+				if (text !== snap.text) {
+					const passage = story.passages.find(p => p.id === snap.id);
+					if (passage) {
+						updatePassage(story, passage, {text})(dispatch, getState);
+					}
 				}
 			}
 		}

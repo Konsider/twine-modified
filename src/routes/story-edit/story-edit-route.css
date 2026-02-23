@@ -110,13 +110,13 @@ body.dragging-passages .story-edit-route * {
 }
 
 [data-app-theme='dark'] .passage-context-menu-map {
-	background: var(--dark-gray);
+	background: var(--light-gray);
 	border-color: var(--gray);
-	color: var(--white);
+	color: var(--dark-gray);
 }
 
 [data-app-theme='dark'] .passage-context-menu-header {
-	color: var(--light-gray);
+	color: var(--dark-gray);
 }
 
 [data-app-theme='dark'] .passage-context-menu-subheader {
@@ -124,7 +124,7 @@ body.dragging-passages .story-edit-route * {
 }
 
 [data-app-theme='dark'] .passage-context-menu-item:hover:not(:disabled) {
-	background: var(--gray);
+	background: var(--light-gray-translucent);
 }
 
 [data-app-theme='dark'] .passage-context-menu-separator {
@@ -137,4 +137,5 @@ body.dragging-passages .story-edit-route * {
 
 [data-app-theme='dark'] .passage-context-menu-delete:hover:not(:disabled) {
 	background: hsla(0, 80%, 50%, 0.15);
+	color: #fca5a5;
 }

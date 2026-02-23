@@ -71,12 +71,20 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 			: passage.text;
 	}, [passage.text]);
 
+	// Build the image URL for the passage thumbnail.
+	const imageUrl = React.useMemo(() => {
+		if (passage.image && storyIfid && isElectronRenderer()) {
+			return `twine-image://${storyIfid}/${encodeURIComponent(passage.image)}`;
+		}
+		return undefined;
+	}, [passage.image, storyIfid]);
+
 	const handleMouseEnter = React.useCallback((e: React.MouseEvent) => {
-		if (isDraggingRef.current || !previewText) return;
+		if (isDraggingRef.current || (!previewText && !imageUrl)) return;
 		hoverTimerRef.current = setTimeout(() => {
 			if (!isDraggingRef.current) setShowPreview(true);
 		}, 1000);
-	}, [previewText]);
+	}, [previewText, imageUrl]);
 
 	const handleMouseLeave = React.useCallback(() => {
 		clearTimeout(hoverTimerRef.current);
@@ -112,14 +120,6 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 		}),
 		[passage.height, passage.left, passage.top, passage.width]
 	);
-
-	// Build the image URL for the passage thumbnail.
-	const imageUrl = React.useMemo(() => {
-		if (passage.image && storyIfid && isElectronRenderer()) {
-			return `twine-image://${storyIfid}/${encodeURIComponent(passage.image)}`;
-		}
-		return undefined;
-	}, [passage.image, storyIfid]);
 
 	const handleMouseDown = React.useCallback(
 		(event: MouseEvent) => {
@@ -199,18 +199,18 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 					selected={passage.selected}
 				>
 					<TagStripe tagColors={tagColors} tags={passage.tags} />
-					{imageUrl && (
-						<img
-							className="passage-card-image"
-							src={imageUrl}
-							alt=""
-							draggable={false}
-						/>
-					)}
 					<h2>{passage.name}</h2>
 					<CardContent>{excerpt}</CardContent>
 				</SelectableCard>
-				{showPreview && previewText && (
+				{imageUrl && (
+					<img
+						className="passage-card-image"
+						src={imageUrl}
+						alt=""
+						draggable={false}
+					/>
+				)}
+				{showPreview && (previewText || imageUrl) && (
 					<div
 						className="passage-hover-preview"
 						style={{
@@ -218,7 +218,17 @@ export const PassageCard: React.FC<PassageCardProps> = React.memo(props => {
 							bottom: '100%'
 						}}
 					>
-						{previewText}
+						{imageUrl && (
+							<img
+								className="passage-preview-image"
+								src={imageUrl}
+								alt=""
+								draggable={false}
+							/>
+						)}
+						{previewText && (
+							<div className="passage-preview-text">{previewText}</div>
+						)}
 					</div>
 				)}
 			</div>

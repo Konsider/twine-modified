@@ -52,8 +52,10 @@ export function useViewPersistence(
 
 		let attempts = 0;
 		const maxAttempts = 10;
+		let mounted = true;
 
 		function tryRestore() {
+			if (!mounted) return;
 			attempts++;
 
 			el!.scrollLeft = targetLeft;
@@ -65,7 +67,7 @@ export function useViewPersistence(
 
 			if (!ok && attempts < maxAttempts) {
 				requestAnimationFrame(() => {
-					setTimeout(tryRestore, 50);
+					if (mounted) setTimeout(tryRestore, 50);
 				});
 			} else {
 				// Seed the ref so the first interval doesn't re-save
@@ -80,6 +82,10 @@ export function useViewPersistence(
 		requestAnimationFrame(() => {
 			requestAnimationFrame(tryRestore);
 		});
+
+		return () => {
+			mounted = false;
+		};
 		// savedScrollLeft / savedScrollTop are read only on first mount
 		// via the ref guard, so they don't need to be dependencies.
 		// eslint-disable-next-line react-hooks/exhaustive-deps

@@ -30,12 +30,13 @@
 }
 
 [data-app-theme='dark'] .textarea-link-autocomplete {
-	background: var(--dark-gray);
+	background: var(--light-gray);
 	border-color: var(--gray);
+	color: var(--dark-gray);
 }
 
 [data-app-theme='dark'] .textarea-link-autocomplete .autocomplete-item:hover,
 [data-app-theme='dark'] .textarea-link-autocomplete .autocomplete-item.selected {
 	background: var(--blue);
-	color: var(--white);
+	color: var(--black);
 }

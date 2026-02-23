@@ -17,6 +17,11 @@ export interface TwineElectronWindow extends Window {
 			defaultFilename: string,
 			defaultPath: string
 		): Promise<boolean>;
+		showSaveBinaryDialog(
+			data: Uint8Array,
+			defaultFilename: string,
+			defaultPath: string
+		): Promise<boolean>;
 		loadImageManifest(storyIfid: string): Promise<Record<string, string>>;
 		savePassageImage(
 			storyIfid: string,

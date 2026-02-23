@@ -47,6 +47,12 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 	const storyRef = React.useRef(story);
 	storyRef.current = story;
 	const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+	// Track event listeners for cleanup on unmount.
+	const listenersRef = React.useRef<{
+		wrapper: HTMLElement;
+		contextmenu: (e: MouseEvent) => void;
+		click: (e: MouseEvent) => void;
+	} | null>(null);
 	const {t} = useTranslation();
 
 	// Context menu state.
@@ -54,6 +60,24 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		x: number;
 		y: number;
 	} | null>(null);
+	// Whether text is selected when the context menu was opened.
+	const [hasSelection, setHasSelection] = React.useState(false);
+
+	// Helper to open context menu and snapshot selection state.
+	const openContextMenu = React.useCallback((x: number, y: number) => {
+		const editor = editorRef.current;
+
+		if (editor) {
+			setHasSelection(editor.getSelection().length > 0);
+		} else {
+			const ta = codeAreaContainerRef.current?.querySelector(
+				'textarea.visible'
+			) as HTMLTextAreaElement | null;
+			setHasSelection(ta ? ta.selectionStart !== ta.selectionEnd : false);
+		}
+
+		setContextMenu({x, y});
+	}, []);
 
 	// These are refs so that changing them doesn't trigger a rerender, and more
 	// importantly, no React effects fire.
@@ -213,13 +237,13 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 			// Attach the right-click context menu handler.
 			const wrapper = editor.getWrapperElement();
 
-			wrapper.addEventListener('contextmenu', (e: MouseEvent) => {
+			const contextmenuHandler = (e: MouseEvent) => {
 				e.preventDefault();
-				setContextMenu({x: e.clientX, y: e.clientY});
-			});
+				openContextMenu(e.clientX, e.clientY);
+			};
 
 			// Ctrl+click (or Cmd+click) on a link to jump to that passage.
-			wrapper.addEventListener('click', (e: MouseEvent) => {
+			const clickHandler = (e: MouseEvent) => {
 				if (!(e.ctrlKey || e.metaKey)) return;
 
 				const pos = editor.coordsChar({left: e.clientX, top: e.clientY});
@@ -243,7 +267,11 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 						break;
 					}
 				}
-			});
+			};
+
+			wrapper.addEventListener('contextmenu', contextmenuHandler);
+			wrapper.addEventListener('click', clickHandler);
+			listenersRef.current = {wrapper, contextmenu: contextmenuHandler, click: clickHandler};
 
 			// Enable spellcheck on the contenteditable div that CodeMirror
 			// creates when inputStyle is 'contenteditable'.
@@ -273,6 +301,18 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		},
 		[onEditorChange]
 	);
+
+	// Clean up event listeners on unmount.
+	React.useEffect(() => {
+		return () => {
+			const listeners = listenersRef.current;
+			if (listeners) {
+				listeners.wrapper.removeEventListener('contextmenu', listeners.contextmenu);
+				listeners.wrapper.removeEventListener('click', listeners.click);
+				listenersRef.current = null;
+			}
+		};
+	}, []);
 
 	// -- Context menu action handlers --
 	// These work with either CodeMirror (editorRef) or the plain textarea.
@@ -390,23 +430,6 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 		}
 	}, [handleLocalChangeText]);
 
-	const hasSelection = React.useMemo(() => {
-		const editor = editorRef.current;
-
-		if (editor) {
-			return editor.getSelection().length > 0;
-		}
-
-		const ta = getTextarea();
-
-		if (ta) {
-			return ta.selectionStart !== ta.selectionEnd;
-		}
-
-		return false;
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [contextMenu]);
-
 	// Also handle right-click on the fallback textarea.
 	React.useEffect(() => {
 		if (useCodeMirrorForPassage || !codeAreaContainerRef.current) {
@@ -421,7 +444,7 @@ export const PassageText: React.FC<PassageTextProps> = props => {
 
 		function handleContextMenu(e: MouseEvent) {
 			e.preventDefault();
-			setContextMenu({x: e.clientX, y: e.clientY});
+			openContextMenu(e.clientX, e.clientY);
 		}
 
 		area.addEventListener('contextmenu', handleContextMenu);

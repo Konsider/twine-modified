@@ -3,7 +3,6 @@ import {IconFocus2, IconResize} from '@tabler/icons';
 import {IconButton} from '../../../components/control/icon-button';
 import {updateStory, useStoriesContext, Story} from '../../../store/stories';
 import {boundingRect} from '../../../util/geometry';
-import {parseLinks} from '../../../util/parse-links';
 import {PassageDisplayMode} from '../../../components/passage/passage-map';
 import {setInstantZoomFlag} from '../use-zoom-wheel';
 import {IconViewFull, IconViewTitles, IconViewAuto} from './view-mode-icons';
@@ -11,16 +10,25 @@ import './zoom-buttons.css';
 
 const emptySet = new Set<string>();
 
+export interface PassageAnalysis {
+	orphanIds: Set<string>;
+	deadEndIds: Set<string>;
+	confirmedEnds: number;
+	unconfirmedEnds: number;
+	hubCount: number;
+}
+
 export interface ZoomButtonsProps {
 	story: Story;
 	mainContent: React.RefObject<HTMLElement>;
 	displayMode: PassageDisplayMode;
 	onChangeDisplayMode: (mode: PassageDisplayMode) => void;
 	orphanIds?: Set<string>;
+	passageAnalysis?: PassageAnalysis;
 }
 
 export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(
-	({story, mainContent, displayMode, onChangeDisplayMode, orphanIds = emptySet}) => {
+	({story, mainContent, displayMode, onChangeDisplayMode, orphanIds = emptySet, passageAnalysis}) => {
 	const {dispatch, stories} = useStoriesContext();
 
 	const zoomToPassages = React.useCallback(
@@ -73,23 +81,10 @@ export const ZoomButtons: React.FC<ZoomButtonsProps> = React.memo(
 		zoomToPassages(selectedPassages);
 	}, [selectedPassages, zoomToPassages]);
 
-	// Passage stats.
-	const confirmedEnds = React.useMemo(
-		() => story.passages.filter(p => p.end).length,
-		[story.passages]
-	);
-	const unconfirmedEnds = React.useMemo(
-		() =>
-			story.passages.filter(
-				p => !p.end && p.text.trim() !== '' && parseLinks(p.text, true).length === 0
-			).length,
-		[story.passages]
-	);
-
-	const hubCount = React.useMemo(
-		() => story.passages.filter(p => p.hub).length,
-		[story.passages]
-	);
+	// Passage stats — use pre-computed analysis when available.
+	const confirmedEnds = passageAnalysis?.confirmedEnds ?? 0;
+	const unconfirmedEnds = passageAnalysis?.unconfirmedEnds ?? 0;
+	const hubCount = passageAnalysis?.hubCount ?? 0;
 
 	const orphanCount = orphanIds.size;
 

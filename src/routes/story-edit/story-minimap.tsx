@@ -1,10 +1,10 @@
 import * as React from 'react';
 import {Passage} from '../../store/stories';
-import {parseLinks} from '../../util/parse-links';
 import './story-minimap.css';
 
 export interface StoryMinimapProps {
 	orphanIds?: Set<string>;
+	deadEndIds?: Set<string>;
 	passages: Passage[];
 	startPassageId: string;
 	zoom: number;
@@ -18,7 +18,7 @@ const PADDING = 20;
 const emptySet = new Set<string>();
 
 export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
-	({orphanIds = emptySet, passages, startPassageId, zoom, container, onZoom}) => {
+	({orphanIds = emptySet, deadEndIds = emptySet, passages, startPassageId, zoom, container, onZoom}) => {
 		const canvasRef = React.useRef<HTMLCanvasElement>(null);
 		const draggingRef = React.useRef(false);
 
@@ -93,7 +93,7 @@ export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
 					ctx.fillStyle = '#5cb85c';
 				} else if (p.hub) {
 					ctx.fillStyle = '#c89832';
-				} else if (p.text.trim() !== '' && parseLinks(p.text, true).length === 0) {
+				} else if (deadEndIds.has(p.id)) {
 					ctx.fillStyle = '#9b59b6';
 				} else if (orphanIds.has(p.id)) {
 					ctx.fillStyle = '#e89740';
@@ -115,7 +115,7 @@ export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
 			ctx.strokeStyle = 'rgba(255, 100, 100, 0.8)';
 			ctx.lineWidth = 1.5;
 			ctx.strokeRect(vx, vy, vw, vh);
-		}, [bounds, container, orphanIds, passages, scale, startPassageId, zoom]);
+		}, [bounds, container, deadEndIds, orphanIds, passages, scale, startPassageId, zoom]);
 
 		// Redraw on changes.
 		React.useEffect(() => {

@@ -29,7 +29,7 @@ export const TagCardButton: React.FC<TagCardButtonProps> = props => {
 	const {t} = useTranslation();
 	const tagCompletions = React.useMemo(
 		() => allTags.filter(tag => !tags.includes(tag)),
-		[allTags]
+		[allTags, tags]
 	);
 	const label =
 		tags.length === 0

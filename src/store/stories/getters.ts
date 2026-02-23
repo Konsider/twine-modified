@@ -1,5 +1,4 @@
 import Fuse from 'fuse.js';
-import uniq from 'lodash/uniq';
 import {Passage, SearchScope, StorySearchFlags, Story} from './stories.types';
 import {createRegExp} from '../../util/regexp';
 import {parseLinks} from '../../util/parse-links';
@@ -151,8 +150,10 @@ export function passagesMatchingSearch(
 	}
 
 	return passages.filter(passage => {
-		const matchText = scope !== 'names' && (matcher.lastIndex = 0, matcher.test(passage.text));
-		const matchName = scope !== 'text' && (matcher.lastIndex = 0, matcher.test(passage.name));
+		matcher.lastIndex = 0;
+		const matchText = scope !== 'names' && matcher.test(passage.text);
+		matcher.lastIndex = 0;
+		const matchName = scope !== 'text' && matcher.test(passage.name);
 
 		return matchText || matchName;
 	});
@@ -168,15 +169,15 @@ export function storyPassageTags(story: Story) {
 }
 
 export function storyStats(story: Story) {
-	const links = story.passages.reduce<string[]>(
-		(links, passage) => [
-			...links,
-			...parseLinks(passage.text).filter(link => links.indexOf(link) === -1)
-		],
-		[]
-	);
+	const linkSet = new Set<string>();
+	for (const passage of story.passages) {
+		for (const link of parseLinks(passage.text)) {
+			linkSet.add(link);
+		}
+	}
+	const links = Array.from(linkSet);
 
-	const brokenLinks = uniq(links).filter(
+	const brokenLinks = links.filter(
 		link => !story.passages.some(passage => passage.name === link)
 	);
 

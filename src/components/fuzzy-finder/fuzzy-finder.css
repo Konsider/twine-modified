@@ -58,6 +58,14 @@
 	border-bottom: 1px solid var(--faint-gray);
 }
 
+[data-app-theme='dark'] .fuzzy-finder-footer {
+	border-top-color: var(--light-gray);
+}
+
+[data-app-theme='dark'] .fuzzy-finder-toolbar {
+	border-bottom-color: var(--light-gray);
+}
+
 .search-scope {
 	display: flex;
 	align-items: center;
@@ -83,6 +91,10 @@
 
 .search-scope button:hover {
 	background: var(--faint-gray);
+}
+
+[data-app-theme='dark'] .search-scope button:hover {
+	background: var(--light-gray-translucent);
 }
 
 .search-scope button.active {

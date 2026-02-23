@@ -7,7 +7,6 @@ import {
 	useStoriesContext
 } from '../../../../store/stories';
 import {importStories as parseHtmlStories} from '../../../../util/import';
-import {storyFileName} from '../../../../electron/shared';
 import {useStoriesRepair} from '../../../../store/use-stories-repair';
 
 export const BackupImportButton: React.FC = () => {
@@ -47,17 +46,16 @@ export const BackupImportButton: React.FC = () => {
 				return;
 			}
 
-			// Check for conflicts.
+			// Check for conflicts by name.
 			const conflicts = allStories.filter(story =>
 				existingStories.some(
-					existing => storyFileName(existing) === storyFileName(story)
+					existing => existing.name === story.name
 				)
 			);
 			const nonConflicts = allStories.filter(
 				story =>
 					!existingStories.some(
-						existing =>
-							storyFileName(existing) === storyFileName(story)
+						existing => existing.name === story.name
 					)
 			);
 

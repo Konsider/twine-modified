@@ -1,10 +1,10 @@
 .selectable-card.selected .card {
 	background: var(--light-blue);
-	box-shadow: 0 0 0 2.5px var(--blue), 0 0 8px rgba(33, 120, 232, 0.35);
+	box-shadow: 0 0 0 4px var(--blue), 0 0 8px rgba(33, 120, 232, 0.35);
 }
 
 .selectable-card.selected .card.highlighted {
 	background: var(--light-blue);
 	background: color-mix(in lch, var(--light-blue), var(--light-yellow));
-	box-shadow: 0 0 0 2.5px var(--blue), 0 0 8px rgba(33, 120, 232, 0.35);
+	box-shadow: 0 0 0 4px var(--blue), 0 0 8px rgba(33, 120, 232, 0.35);
 }

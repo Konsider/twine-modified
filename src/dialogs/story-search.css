@@ -54,6 +54,10 @@
 	background: var(--faint-gray);
 }
 
+[data-app-theme='dark'] .story-search-dialog .search-scope button:hover {
+	background: var(--light-gray-translucent);
+}
+
 .story-search-dialog .search-scope button.active {
 	background: var(--blue);
 	border-color: var(--blue);

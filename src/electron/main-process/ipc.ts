@@ -130,7 +130,18 @@ export function initIpc() {
 					) => {
 						try {
 							await saveStoryHtml(saverStory, saverStoryHtml);
-							saverEvent.sender.send('story-html-saved', saverStory);
+							// The sender may already be destroyed if this
+							// fires during the will-quit flush after the
+							// window has closed.
+							if (
+								saverEvent.sender &&
+								!saverEvent.sender.isDestroyed()
+							) {
+								saverEvent.sender.send(
+									'story-html-saved',
+									saverStory
+								);
+							}
 						} catch (error) {
 							dialog.showErrorBox(
 								i18n.t('electron.errors.storySave'),
@@ -193,6 +204,33 @@ export function initIpc() {
 			}
 
 			await writeFile(result.filePath, data, 'utf-8');
+			return true;
+		}
+	);
+
+	ipcMain.handle(
+		'show-save-binary-dialog',
+		async (
+			_event,
+			data: Uint8Array,
+			defaultFilename: string,
+			defaultDirectory: string
+		) => {
+			const extension = defaultFilename.split('.').pop() || 'zip';
+			const filterName =
+				extension === 'zip' ? 'Zip Archives' : 'Binary Files';
+			const result = await dialog.showSaveDialog({
+				defaultPath: defaultDirectory
+					? join(defaultDirectory, defaultFilename)
+					: defaultFilename,
+				filters: [{name: filterName, extensions: [extension]}]
+			});
+
+			if (result.canceled || !result.filePath) {
+				return false;
+			}
+
+			await writeFile(result.filePath, Buffer.from(data));
 			return true;
 		}
 	);
@@ -278,16 +316,26 @@ export function initIpc() {
 		}
 	);
 
-	app.on('will-quit', async () => {
+	app.on('will-quit', (event) => {
 		if (Object.keys(storySavers).length > 0) {
+			// Prevent the default quit so we can flush pending saves first.
+			event.preventDefault();
+
 			// Flush all pending story saves.
-
-			for (const storyId of Object.keys(storySavers)) {
-				console.log(`Flushing pending story saves for story ID ${storyId}`);
-				await storySavers[storyId].flush();
-			}
-
-			console.log('All pending story saves flushed successfully');
+			Promise.all(
+				Object.keys(storySavers).map(storyId => {
+					console.log(`Flushing pending story saves for story ID ${storyId}`);
+					return storySavers[storyId].flush();
+				})
+			).then(() => {
+				console.log('All pending story saves flushed successfully');
+				// Use app.exit() instead of app.quit() to avoid re-triggering
+				// will-quit after windows have been destroyed.
+				app.exit();
+			}).catch(error => {
+				console.error('Error flushing story saves:', error);
+				app.exit();
+			});
 		} else {
 			console.log('No pending story saves to flush');
 		}

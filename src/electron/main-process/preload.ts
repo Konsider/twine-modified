@@ -53,6 +53,18 @@ contextBridge.exposeInMainWorld('twineElectron', {
 			defaultPath
 		);
 	},
+	showSaveBinaryDialog(
+		data: Uint8Array,
+		defaultFilename: string,
+		defaultPath: string
+	) {
+		return ipcRenderer.invoke(
+			'show-save-binary-dialog',
+			data,
+			defaultFilename,
+			defaultPath
+		);
+	},
 	loadImageManifest(storyIfid: string) {
 		return ipcRenderer.invoke('load-image-manifest', storyIfid);
 	},

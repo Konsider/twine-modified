@@ -30,42 +30,18 @@ export function hueString(value: string): number {
 }
 
 /**
- * Generates a color name for a string, roughly mapping hueString() to colors.
+ * Generates a color name for a string, distributing evenly across all
+ * named colors (excluding 'none'). Uses a simple hash modulo so that
+ * brown and gray are reachable — hue-based mapping can't distinguish
+ * them from other warm / desaturated tones.
  */
 export function colorString(value: string): Color {
-	const hue = hueString(value);
+	const namedColors = colors.filter(c => c !== 'none');
+	let hash = 0;
 
-	if (hue < 20) {
-		return 'red';
+	for (let i = 0; i < value.length; i++) {
+		hash = ((hash << 5) - hash + value.charCodeAt(i)) | 0;
 	}
 
-	if (hue < 50) {
-		return 'orange';
-	}
-
-	if (hue < 75) {
-		return 'yellow';
-	}
-
-	if (hue < 160) {
-		return 'green';
-	}
-
-	if (hue < 200) {
-		return 'teal';
-	}
-
-	if (hue < 270) {
-		return 'blue';
-	}
-
-	if (hue < 310) {
-		return 'purple';
-	}
-
-	if (hue < 345) {
-		return 'pink';
-	}
-
-	return 'red';
+	return namedColors[Math.abs(hash) % namedColors.length];
 }

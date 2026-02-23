@@ -21,6 +21,9 @@ export const TextareaLinkAutocomplete: React.FC<TextareaLinkAutocompleteProps> =
 		// Track where the `[[` prefix starts so we can replace correctly.
 		const prefixStartRef = React.useRef(0);
 		const listRef = React.useRef<HTMLDivElement>(null);
+		// Set to true while a mousedown on a dropdown item is in progress,
+		// so the blur handler knows not to close the dropdown.
+		const clickingItemRef = React.useRef(false);
 
 		// Refs that mirror state so event handlers can read the latest
 		// values without being re-attached on every change.
@@ -148,8 +151,13 @@ export const TextareaLinkAutocomplete: React.FC<TextareaLinkAutocompleteProps> =
 			}
 
 			function handleBlur() {
-				// Delay so click on dropdown item fires first.
-				setTimeout(() => setOpen(false), 200);
+				// If a dropdown item is being clicked, the mousedown handler
+				// will have set the ref — don't close in that case.
+				requestAnimationFrame(() => {
+					if (!clickingItemRef.current) {
+						setOpen(false);
+					}
+				});
 			}
 
 			ta.addEventListener('input', handleInput);
@@ -190,7 +198,9 @@ export const TextareaLinkAutocomplete: React.FC<TextareaLinkAutocompleteProps> =
 						className={`autocomplete-item ${i === selectedIndex ? 'selected' : ''}`}
 						onMouseDown={e => {
 							e.preventDefault();
+							clickingItemRef.current = true;
 							insertMatch(name);
+							clickingItemRef.current = false;
 						}}
 					>
 						{name}
