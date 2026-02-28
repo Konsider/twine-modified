@@ -226,19 +226,36 @@ export const InnerStoryEditRoute: React.FC = () => {
 				return;
 			}
 
-			const newText = passage.text.replace(
+			// Use a sentinel to mark where links were removed so we can
+			// surgically clean only the whitespace they leave behind,
+			// without disturbing existing blank lines in the passage.
+			const SENTINEL = '\x00REMOVED\x00';
+
+			let newText = passage.text.replace(
 				/\[\[.*?\]\]/g,
 				(match: string) => {
 					const inner = match.slice(2, -2);
-					return resolveLink(inner) === targetName ? '' : match;
+					return resolveLink(inner) === targetName ? SENTINEL : match;
 				}
-			)
-			// Collapse runs of whitespace (but not newlines) left behind.
-			.replace(/[ \t]{2,}/g, ' ')
-			// Remove lines that are now empty or whitespace-only.
-			.replace(/\n[ \t]*\n/g, '\n')
+			);
+
+			// Lines that are now ONLY sentinels and whitespace → remove the
+			// entire line including its trailing newline.  The `$` anchor
+			// (multiline) ensures we only match full lines, not partial.
+			newText = newText.replace(
+				new RegExp(`^[ \\t]*(?:${SENTINEL}[ \\t]*)+$\\n?`, 'gm'),
+				''
+			);
+
+			// Remove remaining (inline) sentinels, leaving surrounding text.
+			newText = newText.replace(new RegExp(SENTINEL, 'g'), '');
+
+			// Collapse runs of horizontal whitespace left by inline removal
+			// (e.g. "Go to  now" → "Go to now").
+			newText = newText.replace(/[ \t]{2,}/g, ' ');
+
 			// Trim trailing whitespace on each line.
-			.replace(/[ \t]+$/gm, '');
+			newText = newText.replace(/[ \t]+$/gm, '');
 
 			setContextMenu(null);
 
