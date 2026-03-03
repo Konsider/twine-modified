@@ -33,6 +33,10 @@ export function passageToTwee(passage: Passage) {
 			? `[${passage.tags.map(escapeForTweeHeader).join(' ')}]`
 			: undefined;
 	const metadata = JSON.stringify({
+		// Stable passage identifier. This is intentionally exported so that
+		// external tooling (e.g. generators) can reliably remap passage-scoped
+		// assets/overrides across passage renames.
+		pid: passage.id,
 		position: `${passage.left},${passage.top}`,
 		size: `${passage.width},${passage.height}`,
 		...(passage.end ? {end: true} : {}),
@@ -101,6 +105,13 @@ export function passageFromTwee(source: string): Omit<Passage, 'story'> {
 
 		try {
 			const metadata = JSON.parse(rawMetadata);
+
+			// Stable passage identifier. If present, preserve it exactly.
+			// We intentionally do not coerce/canonicalize this value so that a
+			// custom Twine build can own the exact PID format.
+			if (typeof metadata.pid === 'string' && metadata.pid.trim() !== '') {
+				passage.id = metadata.pid;
+			}
 
 			if (typeof metadata.position === 'string') {
 				const [left, top] = metadata.position.split(',').map(parseFloat);

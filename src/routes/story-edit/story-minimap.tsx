@@ -192,7 +192,7 @@ export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
 			[]
 		);
 
-		// Ctrl+scroll on minimap zooms the main map toward the pointer.
+		// Scroll on minimap zooms the main map toward the pointer.
 		React.useEffect(() => {
 			const canvas = canvasRef.current;
 			const el = container.current;
@@ -200,7 +200,16 @@ export const StoryMinimap: React.FC<StoryMinimapProps> = React.memo(
 			if (!canvas || !el || !onZoom) return;
 
 			function handleWheel(e: WheelEvent) {
-				if (!e.ctrlKey && !e.metaKey) return;
+				// Ctrl+wheel → pan the main map.
+				if (e.ctrlKey || e.metaKey) {
+					e.preventDefault();
+					const mainEl = container.current;
+					if (mainEl) {
+						mainEl.scrollLeft += e.deltaX || 0;
+						mainEl.scrollTop += e.deltaY || 0;
+					}
+					return;
+				}
 
 				e.preventDefault();
 				e.stopPropagation();

@@ -34,14 +34,29 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 			const container = containerRef.current;
 			let dragScrollStart: Point;
 			let dragMouseStart: Point;
+			let isPanning = false;
+			const PAN_THRESHOLD = 4; // px of movement before committing to a pan
 
 			function moveListener(event: PointerEvent) {
-				if (container) {
-					container.scrollLeft =
-						dragScrollStart.left + (dragMouseStart.left - event.clientX);
-					container.scrollTop =
-						dragScrollStart.top + (dragMouseStart.top - event.clientY);
+				if (!container) return;
+
+				if (!isPanning) {
+					const dx = event.clientX - dragMouseStart.left;
+					const dy = event.clientY - dragMouseStart.top;
+
+					if (Math.abs(dx) < PAN_THRESHOLD && Math.abs(dy) < PAN_THRESHOLD) {
+						return;
+					}
+
+					// Movement exceeds threshold — commit to panning.
+					isPanning = true;
+					container.style.cursor = 'grabbing';
 				}
+
+				container.scrollLeft =
+					dragScrollStart.left + (dragMouseStart.left - event.clientX);
+				container.scrollTop =
+					dragScrollStart.top + (dragMouseStart.top - event.clientY);
 			}
 
 			function stopGrab(event: PointerEvent) {
@@ -52,44 +67,53 @@ export const MainContent = React.forwardRef<HTMLDivElement, MainContentProps>(
 				container.releasePointerCapture(event.pointerId);
 				container.removeEventListener('pointerleave', stopGrab);
 				container.removeEventListener('pointermove', moveListener);
+				container.removeEventListener('pointerup', upListener);
 				container.style.cursor = '';
-				event.preventDefault();
+				isPanning = false;
 			}
 
 			function upListener(event: PointerEvent) {
-				if (event.button === 2) {
+				if (event.button === 0) {
 					stopGrab(event);
 				}
 			}
 
 			function downListener(event: PointerEvent) {
-				if (event.button !== 2 || !container) {
+				if (event.button !== 0 || !container) {
 					return;
 				}
 
+				// Don't pan when clicking on a passage card or interactive
+				// UI elements — those should still select/drag passages.
+				const target = event.target as HTMLElement;
+
+				if (
+					target.closest(
+						'.passage-card, .fuzzy-finder, .zoom-buttons'
+					)
+				) {
+					return;
+				}
+
+				// Don't call preventDefault here — let click/dblclick events
+				// fire normally.  We only start panning once the pointer
+				// moves beyond the threshold.
+				isPanning = false;
 				container.setPointerCapture(event.pointerId);
 				container.addEventListener('pointerleave', stopGrab);
 				container.addEventListener('pointermove', moveListener);
 				container.addEventListener('pointerup', upListener);
-				container.style.cursor = 'grabbing';
 				dragScrollStart = {
 					left: container.scrollLeft,
 					top: container.scrollTop
 				};
 				dragMouseStart = {left: event.clientX, top: event.clientY};
-				event.preventDefault();
-			}
-
-			function ignoreContext(event: Event) {
-				event.preventDefault();
 			}
 
 			if (grabbable && container) {
 				container.addEventListener('pointerdown', downListener);
-				container.addEventListener('contextmenu', ignoreContext);
 				return () => {
 					container.removeEventListener('pointerdown', downListener);
-					container.removeEventListener('contextmenu', ignoreContext);
 				};
 			}
 		}, [grabbable]);

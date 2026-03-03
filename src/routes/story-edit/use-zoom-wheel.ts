@@ -42,7 +42,9 @@ function clamp(value: number, min: number, max: number): number {
 }
 
 /**
- * Smooth, pointer-relative Ctrl+mousewheel zoom for the story map.
+ * Smooth, pointer-relative mousewheel zoom for the story map.
+ *
+ * Bare scroll-wheel zooms; Ctrl+wheel falls through to normal scroll (pan).
  *
  * The CSS `transform` and scroll position are set **synchronously** in the
  * wheel handler so the viewport never flickers.  React state is updated
@@ -66,10 +68,15 @@ export function useZoomWheel(
 		}
 
 		function handleWheel(event: WheelEvent) {
-			if (!event.ctrlKey) {
+			if (event.ctrlKey) {
+				// Ctrl+wheel → pan the map.
+				event.preventDefault();
+				el!.scrollLeft += event.deltaX || 0;
+				el!.scrollTop += event.deltaY || 0;
 				return;
 			}
 
+			// Bare wheel → zoom.
 			event.preventDefault();
 			event.stopPropagation();
 

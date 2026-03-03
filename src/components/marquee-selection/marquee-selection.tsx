@@ -71,7 +71,7 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 		function downListener(event: PointerEvent) {
 			if (
 				event.pointerType === 'touch' ||
-				event.button !== 0 ||
+				event.button !== 2 ||
 				!currentContainer
 			) {
 				return;
@@ -99,10 +99,30 @@ export const MarqueeSelection: React.FC<MarqueeSelectionProps> = props => {
 			setCurrent(relativePointerPos(event));
 		}
 
+		// Suppress the native context menu on empty map space so
+		// right-click-drag can be used for marquee selection.
+		// Right-click on passage cards is handled separately by the
+		// story-edit-route contextmenu listener which calls
+		// preventDefault itself.
+		function ignoreContext(event: MouseEvent) {
+			if (
+				ignoreEventsOnSelector &&
+				(event.target as HTMLElement).closest(ignoreEventsOnSelector)
+			) {
+				// Let the passage context menu handle it.
+				return;
+			}
+
+			event.preventDefault();
+		}
+
 		if (currentContainer) {
 			currentContainer.addEventListener('pointerdown', downListener);
-			return () =>
+			currentContainer.addEventListener('contextmenu', ignoreContext);
+			return () => {
 				currentContainer.removeEventListener('pointerdown', downListener);
+				currentContainer.removeEventListener('contextmenu', ignoreContext);
+			};
 		}
 	}, [container, ignoreEventsOnSelector]);
 
