@@ -5,6 +5,7 @@ import {DocumentTitle} from '../../components/document-title/document-title';
 import {DialogsContextProvider} from '../../dialogs';
 import {
 	createUntitledPassage,
+	deselectAllPassages,
 	storyWithId,
 	updatePassage,
 	updateStory,
@@ -175,6 +176,31 @@ export const InnerStoryEditRoute: React.FC = () => {
 
 		el.addEventListener('dblclick', handleDblClick);
 		return () => el.removeEventListener('dblclick', handleDblClick);
+	}, [mainContent, story, undoableStoriesDispatch]);
+
+	// Left-click on empty canvas deselects all passages.
+
+	React.useEffect(() => {
+		const el = mainContent.current;
+		if (!el) return;
+
+		function handleClick(event: MouseEvent) {
+			if (event.button !== 0) return;
+
+			const target = event.target as HTMLElement;
+			if (
+				target.closest(
+					'.passage-card, .fuzzy-finder, .zoom-buttons, .route-toolbar'
+				)
+			) {
+				return;
+			}
+
+			undoableStoriesDispatch(deselectAllPassages(story));
+		}
+
+		el.addEventListener('click', handleClick);
+		return () => el.removeEventListener('click', handleClick);
 	}, [mainContent, story, undoableStoriesDispatch]);
 
 	// Right-click on passage card to show context menu.
@@ -455,6 +481,7 @@ const PassageMapContextMenu: React.FC<{
 			className="passage-context-menu-map"
 			ref={menuRef}
 			style={{left: pos.left, top: pos.top}}
+			onContextMenu={e => e.preventDefault()}
 		>
 			<div className="passage-context-menu-header">
 				{passageName}
@@ -462,6 +489,7 @@ const PassageMapContextMenu: React.FC<{
 			<button
 				className="passage-context-menu-item"
 				onClick={onDuplicate}
+				onMouseDown={e => { if (e.button === 2) onDuplicate(); }}
 			>
 				Duplicate
 			</button>
@@ -476,6 +504,7 @@ const PassageMapContextMenu: React.FC<{
 							className="passage-context-menu-item"
 							key={link}
 							onClick={() => onUnlink(link)}
+							onMouseDown={e => { if (e.button === 2) onUnlink(link); }}
 						>
 							&times; {link}
 						</button>
@@ -486,6 +515,7 @@ const PassageMapContextMenu: React.FC<{
 			<button
 				className="passage-context-menu-item passage-context-menu-delete"
 				onClick={onDelete}
+				onMouseDown={e => { if (e.button === 2 && !isStart) onDelete(); }}
 				disabled={isStart}
 				title={isStart ? 'Cannot delete the start passage' : undefined}
 			>

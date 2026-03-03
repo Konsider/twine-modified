@@ -69,10 +69,17 @@ export function useZoomWheel(
 
 		function handleWheel(event: WheelEvent) {
 			if (event.ctrlKey) {
-				// Ctrl+wheel → pan the map.
+				// Ctrl+wheel → pan the map vertically.
 				event.preventDefault();
 				el!.scrollLeft += event.deltaX || 0;
 				el!.scrollTop += event.deltaY || 0;
+				return;
+			}
+
+			if (event.shiftKey) {
+				// Shift+wheel → pan the map horizontally.
+				event.preventDefault();
+				el!.scrollLeft += event.deltaY || 0;
 				return;
 			}
 
